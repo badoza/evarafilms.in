@@ -776,9 +776,9 @@
             // Base URL + allow JS API
             let url = `https://www.youtube.com/embed/${videoIds[index]}?rel=0&enablejsapi=1`;
             
-            // To guarantee autoplay without user friction, mute=1 is required by modern browsers
+            // Unmuted autoplay so audio plays (Note: modern browsers might block unmuted autoplay until user interacts)
             if(autoplay) {
-                url += '&autoplay=1&mute=1';
+                url += '&autoplay=1';
             }
             
             iframe.src = url;
@@ -897,12 +897,13 @@
         });
 
 
-        // Initialize gallery to show 3 images from each category initially without an active highlighted button
+        // Initialize gallery to show 1 image from each category initially without an active highlighted button
         window.onload = () => {
             const categories = ['wedding', 'prewedding', 'candid'];
             categories.forEach(cat => {
                 const items = document.querySelectorAll(`.gallery-item.${cat}`);
-                for (let i = 0; i < 3 && i < items.length; i++) {
+                // Show only 1 image from each category initially
+                for (let i = 0; i < 1 && i < items.length; i++) {
                     items[i].classList.add('show');
                 }
             });
