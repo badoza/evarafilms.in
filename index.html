@@ -187,7 +187,7 @@
         }
         .btn:hover { background: transparent; color: var(--brand-burgundy); }
 
-        /* --- HOME: CREATIVE STAGGERED IMAGES (h-a, h-d, h-c) --- */
+        /* --- HOME: CREATIVE STAGGERED IMAGES (h-a, h-b, h-c) --- */
         .home-creative-images {
             display: flex; justify-content: center; align-items: center; gap: 20px; 
             margin: 80px auto; max-width: 1000px; padding: 0 5%;
@@ -379,6 +379,8 @@
         .footer-social a { color: var(--brand-gold); font-size: 1.8rem; margin: 0 12px; transition: color 0.3s; }
         .footer-social a:hover { color: #fff; }
         .dev-credit { margin-top: 40px; color: rgba(255,255,255,0.6); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .dev-credit a { color: var(--brand-gold); text-decoration: none; transition: color 0.3s; font-weight: bold; }
+        .dev-credit a:hover { color: #fff; }
 
         /* General Mobile Tweaks */
         @media (max-width: 768px) {
@@ -447,13 +449,13 @@
 
             <a class="btn" onclick="navigate('portfolio')">Explore The Gallery</a>
             
-            <!-- CREATIVE GALLERY using h-a, h-d, h-c -->
+            <!-- CREATIVE GALLERY using h-a, h-b, h-c -->
             <div class="home-creative-images">
                 <div class="hc-img-wrapper hc-img-1">
                     <img src="h-a.png" alt="Evara Gallery A" onerror="this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500&q=80'">
                 </div>
                 <div class="hc-img-wrapper hc-img-2">
-                    <img src="h-d.png" alt="Evara Gallery B" onerror="this.src='https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500&q=80'">
+                    <img src="h-b.png" alt="Evara Gallery B" onerror="this.src='https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500&q=80'">
                 </div>
                 <div class="hc-img-wrapper hc-img-3">
                     <img src="h-c.png" alt="Evara Gallery C" onerror="this.src='https://images.unsplash.com/photo-1583939008298-6e4775d71457?w=500&q=80'">
@@ -667,7 +669,7 @@
             <a href="mailto:theevarafilms@gmail.com"><i class="fas fa-envelope"></i></a>
         </div>
         <p>&copy; 2026 EVARA Films. All Rights Reserved.</p>
-        <div class="dev-credit">developed by Kunal Dongare</div>
+        <div class="dev-credit">developed by <a href="https://www.instagram.com/kunal___dongare/" target="_blank">Kunal Dongare</a></div>
     </footer>
 
     <!-- ==============================================
@@ -796,10 +798,15 @@
         });
 
 
-        // Initialize gallery to show ALL images initially without an active highlighted button
+        // Initialize gallery to show 3 images from each category initially without an active highlighted button
         window.onload = () => {
-            const items = document.querySelectorAll('.gallery-item');
-            items.forEach(item => item.classList.add('show'));
+            const categories = ['wedding', 'prewedding', 'candid'];
+            categories.forEach(cat => {
+                const items = document.querySelectorAll(`.gallery-item.${cat}`);
+                for (let i = 0; i < 3 && i < items.length; i++) {
+                    items[i].classList.add('show');
+                }
+            });
         };
 
     </script>
