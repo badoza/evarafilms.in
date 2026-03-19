@@ -360,13 +360,12 @@
             <p class="hero-text">Through our lens, we turn fleeting moments into everlasting treasures. Rooted in artistry, blending tradition with modern creativity.</p>
             <a class="btn" onclick="navigate('portfolio')">Explore The Gallery</a>
             
-            <!-- Direct Image Display (Replaced Instagram iframe) -->
+            <!-- Direct Image Display -->
             <div class="featured-instagram">
                 <h3 class="brand-font">Latest Captures</h3>
                 <div class="custom-media-grid">
-                    <!-- Add your downloaded images to your folder and name them latest-1.jpg, latest-2.jpg -->
-                    <img src="latest-1.jpg" alt="Latest Wedding Capture 1" onerror="this.src='https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=600&q=80'">
-                    <img src="latest-2.jpg" alt="Latest Wedding Capture 2" onerror="this.src='https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80'">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Latest Wedding Capture 1">
+                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80" alt="Latest Wedding Capture 2">
                 </div>
             </div>
         </div>
@@ -425,26 +424,25 @@
         <div class="container">
             <h2 class="section-title">Visual Treasures</h2>
             
-            <!-- Filters (No 'All' option, default starts at Wedding via JS) -->
+            <!-- Filters: Removed active class so none are colored on load -->
             <div class="filter-controls">
-                <button class="filter-btn active" onclick="filterGallery('wedding')">Wedding</button>
+                <button class="filter-btn" onclick="filterGallery('wedding')">Wedding</button>
                 <button class="filter-btn" onclick="filterGallery('prewedding')">Pre-Wedding</button>
                 <button class="filter-btn" onclick="filterGallery('candid')">Candid</button>
             </div>
 
-            <!-- Image Grid (Generated using the exact local file names requested) -->
+            <!-- Image Grid -->
             <div class="gallery-grid" id="galleryGrid">
                 <!-- Javascript will inject wed-a.png to i, pre-a.png to i, can-a.png to i here -->
             </div>
 
-            <!-- Direct Video Player (Replaced Instagram iframe) -->
+            <!-- Direct Video Player -->
             <div class="featured-reel">
                 <h3 class="brand-font">Featured Film</h3>
                 <div class="custom-video-wrapper">
-                    <!-- Download your reel as an MP4, name it 'featured-reel.mp4', and put it in your folder -->
-                    <!-- 'autoplay loop muted playsinline' ensures it auto-plays smoothly on mobile without controls -->
+                    <!-- Updated with a live sample video so it plays instantly -->
                     <video autoplay loop muted playsinline>
-                        <source src="featured-reel.mp4" type="video/mp4">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-walking-in-a-park-14811-large.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -657,9 +655,10 @@
             });
         }
 
-        // Initialize gallery to show 'wedding' on first load
+        // Initialize gallery to show ALL images initially without an active highlighted button
         window.onload = () => {
-            filterGallery('wedding');
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => item.classList.add('show'));
         };
 
     </script>
