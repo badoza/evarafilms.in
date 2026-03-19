@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVARA Films | Timeless Storytelling</title>
     <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -46,7 +46,7 @@
         .cursor-dot, .cursor-outline {
             position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
             border-radius: 50%; pointer-events: none; z-index: 9999;
-            display: none; /* Hidden on mobile */
+            display: none;
         }
         @media (min-width: 1025px) {
             .cursor-dot, .cursor-outline { display: block; }
@@ -65,7 +65,6 @@
         .logo-container img { height: 45px; cursor: pointer; transition: transform 0.3s; }
         .logo-container img:hover { transform: scale(1.05); }
 
-        /* Desktop Nav */
         .desktop-nav { display: none; gap: 35px; }
         .desktop-nav a {
             text-decoration: none; color: var(--brand-text); font-size: 13px;
@@ -79,7 +78,6 @@
         .desktop-nav a:hover::after, .desktop-nav a.active::after { width: 100%; }
         .desktop-nav a:hover, .desktop-nav a.active { color: var(--brand-burgundy); }
 
-        /* Mobile Hamburger */
         .menu-btn {
             display: block; cursor: pointer; z-index: 1001; background: none; border: none;
             width: 30px; height: 20px; position: relative;
@@ -100,7 +98,6 @@
             .menu-btn { display: none; }
         }
 
-        /* Mobile Overlay Menu */
         .mobile-menu {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: var(--brand-bg); z-index: 999; display: flex;
@@ -113,14 +110,8 @@
             text-decoration: none; opacity: 0; transform: translateY(20px); transition: all 0.4s;
         }
         .mobile-menu.active a { opacity: 1; transform: translateY(0); }
-        .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
-        .mobile-menu a:nth-child(2) { transition-delay: 0.2s; }
-        .mobile-menu a:nth-child(3) { transition-delay: 0.3s; }
-        .mobile-menu a:nth-child(4) { transition-delay: 0.4s; }
-        .mobile-menu a:nth-child(5) { transition-delay: 0.5s; }
 
         /* --- SPA SECTIONS --- */
-        /* This strict rule fixes the overlap issue */
         .page-section { display: none !important; min-height: 100vh; padding-top: 100px; padding-bottom: 60px; }
         .page-section.active { display: block !important; animation: fadeIn 0.6s ease forwards; }
 
@@ -140,62 +131,89 @@
         /* --- 1. HOME --- */
         .hero-wrapper {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; min-height: 70vh;
+            text-align: center; min-height: 80vh; padding-top: 40px;
         }
-        .hero-logo { max-width: 280px; margin-bottom: 30px; animation: float 6s ease-in-out infinite; }
         
-        @keyframes float {
+        /* Premium Cinematic Logo Animation */
+        .hero-logo { 
+            max-width: 350px; /* Bigger logo */
+            width: 80%;
+            margin-bottom: 40px; 
+            /* Cinematic Reveal + Continuous Float */
+            animation: cinematicReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+                       elegantFloat 6s ease-in-out infinite 2s;
+        }
+        
+        @keyframes cinematicReveal {
+            0% { opacity: 0; transform: scale(1.15) translateY(30px); filter: blur(12px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+        @keyframes elegantFloat {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
             100% { transform: translateY(0px); }
         }
 
-        .hero-text { font-size: 1.1rem; max-width: 700px; margin-bottom: 40px; color: var(--brand-text); }
+        /* Creative Home Typography */
+        .home-creative-heading {
+            font-size: 2rem;
+            color: var(--brand-burgundy);
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            max-width: 800px;
+        }
+        
+        .home-creative-text {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: #444;
+            line-height: 1.9;
+        }
+
+        .home-creative-contact {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 30px auto 40px;
+            color: var(--brand-burgundy);
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+        }
         
         .btn {
             display: inline-block; background: var(--brand-burgundy); color: #fff;
-            padding: 14px 35px; text-decoration: none; font-family: 'Cinzel', serif;
+            padding: 16px 40px; text-decoration: none; font-family: 'Cinzel', serif;
             font-size: 1rem; letter-spacing: 2px; border: 1px solid var(--brand-burgundy);
             transition: all 0.4s; cursor: pointer; text-transform: uppercase;
         }
         .btn:hover { background: transparent; color: var(--brand-burgundy); }
 
-        .featured-instagram { margin-top: 80px; text-align: center; }
-        .featured-instagram h3 { font-size: 1.5rem; margin-bottom: 20px; }
-        .iframe-container {
-            max-width: 400px; margin: 0 auto; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); background: #fff;
-        }
+        .featured-instagram { margin-top: 100px; text-align: center; }
+        .featured-instagram h3 { font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 2px; }
 
-        /* --- CUSTOM MEDIA DISPLAYS (NO INSTAGRAM BORDERS) --- */
+        /* Custom Media Grid for Home */
         .custom-media-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px; max-width: 800px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px; max-width: 900px; margin: 0 auto;
         }
         .custom-media-grid img {
-            width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
-            aspect-ratio: 4/5; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.4s;
+            width: 100%; height: 100%; object-fit: cover; border-radius: 12px;
+            aspect-ratio: 4/5; box-shadow: 0 15px 40px rgba(0,0,0,0.1); transition: transform 0.5s;
         }
         .custom-media-grid img:hover { transform: scale(1.03); }
-        
-        .custom-video-wrapper {
-            max-width: 350px; margin: 0 auto; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 15px 40px rgba(108, 30, 52, 0.2); background: #000;
-        }
-        .custom-video-wrapper video {
-            width: 100%; height: 100%; display: block; object-fit: cover; aspect-ratio: 9/16;
-        }
 
         /* --- 2. ABOUT --- */
-        .about-text { text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.05rem; }
-        
-        /* Continuous Looping Animation Box */
-        .pivot-animation-box {
-            position: relative; height: 300px; display: flex; justify-content: center;
-            align-items: center; margin: 0 auto 60px; max-width: 600px; background: #fff;
-            border-radius: 15px; box-shadow: 0 10px 30px rgba(108, 30, 52, 0.06); overflow: hidden;
+        .about-text { 
+            text-align: center; max-width: 850px; margin: 0 auto 50px; 
+            font-size: 1.1rem; line-height: 2; color: #333;
         }
-        .anim-element { position: absolute; width: 200px; text-align: center; opacity: 0; }
+        
+        .pivot-animation-box {
+            position: relative; height: 320px; display: flex; justify-content: center;
+            align-items: center; margin: 0 auto 80px; max-width: 650px; background: #fff;
+            border-radius: 15px; box-shadow: 0 10px 40px rgba(108, 30, 52, 0.08); overflow: hidden;
+        }
+        .anim-element { position: absolute; width: 220px; text-align: center; opacity: 0; }
         
         .loop-pjd { animation: cyclePJD 12s infinite; }
         .loop-is-now { animation: cycleIsNow 12s infinite; }
@@ -216,36 +234,52 @@
             100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
         }
 
-        /* Logo Breakdown Grid */
         .breakdown-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
         }
         .breakdown-card {
-            background: #fff; padding: 40px 30px; text-align: center; border-radius: 8px;
-            border-bottom: 3px solid var(--brand-gold); box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-            transition: transform 0.3s;
+            background: #fff; padding: 50px 30px; text-align: center; border-radius: 10px;
+            border-bottom: 4px solid var(--brand-gold); box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            transition: transform 0.4s;
         }
-        .breakdown-card:hover { transform: translateY(-10px); }
-        .breakdown-icon { width: 70px; height: 70px; object-fit: contain; margin: 0 auto 20px; }
-        .breakdown-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .breakdown-card:hover { transform: translateY(-12px); }
+        
+        /* Robust image handling for breakdown icons */
+        .breakdown-icon { 
+            width: 80px; height: 80px; object-fit: contain; margin: 0 auto 25px;
+            display: block;
+        }
+        /* Fallback styling if image is missing so it doesn't look broken */
+        .breakdown-icon[alt]:after {  
+            content: "\f03e"; /* FontAwesome image icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            display: block;
+            font-size: 40px;
+            color: var(--brand-gold);
+            line-height: 80px;
+        }
+
+        .breakdown-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
 
         /* --- 3. PORTFOLIO --- */
         .filter-controls {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 50px;
         }
         .filter-btn {
             background: transparent; border: 1px solid var(--brand-burgundy); color: var(--brand-burgundy);
-            padding: 8px 25px; font-family: 'Montserrat', sans-serif; text-transform: uppercase;
-            font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; border-radius: 30px;
+            padding: 10px 30px; font-family: 'Montserrat', sans-serif; text-transform: uppercase;
+            font-size: 0.9rem; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s; border-radius: 40px;
         }
+        /* Hover and Active states are styled, but none are active on load */
         .filter-btn.active, .filter-btn:hover { background: var(--brand-burgundy); color: #fff; }
 
         .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;
         }
         .gallery-item {
-            position: relative; overflow: hidden; aspect-ratio: 4/5; border-radius: 8px; display: none;
-            background: #eaeaea; /* Placeholder color while image loads */
+            position: relative; overflow: hidden; aspect-ratio: 4/5; border-radius: 10px; display: none;
+            background: #eaeaea; 
         }
         .gallery-item.show { display: block; animation: fadeIn 0.6s ease forwards; }
         .gallery-item img {
@@ -253,65 +287,67 @@
         }
         .gallery-item:hover img { transform: scale(1.08); }
 
-        .featured-reel { margin-top: 60px; text-align: center; }
-        .featured-reel h3 { margin-bottom: 20px; }
+        .featured-reel { margin-top: 80px; text-align: center; }
+        .featured-reel h3 { font-size: 1.8rem; margin-bottom: 30px; letter-spacing: 2px; }
 
         /* --- 4. SERVICES --- */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .service-box {
-            text-align: center; padding: 50px 30px; background: #fff; border-radius: 8px;
+            text-align: center; padding: 50px 30px; background: #fff; border-radius: 12px;
             border: 1px solid rgba(108, 30, 52, 0.08); transition: all 0.4s;
         }
         .service-box:hover {
             transform: translateY(-10px); box-shadow: 0 20px 40px rgba(108, 30, 52, 0.1);
             border-color: var(--brand-gold);
         }
-        .service-box i { font-size: 2.5rem; color: var(--brand-gold); margin-bottom: 20px; }
-        .service-box h3 { font-size: 1.4rem; margin-bottom: 15px; }
-        .service-box p { font-size: 0.95rem; color: #555; }
+        .service-box i { font-size: 2.5rem; color: var(--brand-gold); margin-bottom: 25px; }
+        .service-box h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .service-box p { font-size: 1rem; color: #555; }
 
         /* --- 5. ENQUIRY --- */
         .contact-wrapper {
             display: grid; grid-template-columns: 1fr; gap: 50px; background: #fff;
-            padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--brand-burgundy);
+            padding: 40px; border-radius: 15px; box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+            border-top: 5px solid var(--brand-burgundy);
         }
         @media (min-width: 800px) { .contact-wrapper { grid-template-columns: 1fr 1.5fr; padding: 60px; } }
 
-        .contact-info { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+        .contact-info { display: flex; flex-direction: column; justify-content: center; gap: 25px; }
         .contact-info h3 { font-size: 1.8rem; margin-bottom: 10px; }
-        .info-item { display: flex; align-items: flex-start; gap: 15px; font-size: 0.95rem; color: #444; }
-        .info-item i { color: var(--brand-gold); font-size: 1.2rem; margin-top: 4px; }
+        .info-item { display: flex; align-items: flex-start; gap: 15px; font-size: 1rem; color: #444; }
+        .info-item i { color: var(--brand-gold); font-size: 1.3rem; margin-top: 4px; }
         .info-item a { color: inherit; text-decoration: none; transition: color 0.3s; }
         .info-item a:hover { color: var(--brand-burgundy); }
 
         .form-group { margin-bottom: 20px; }
         .form-group input, .form-group textarea {
-            width: 100%; padding: 15px 20px; border: 1px solid #e0e0e0; border-radius: 5px;
-            background: var(--brand-bg); font-family: 'Montserrat', sans-serif; font-size: 0.95rem;
+            width: 100%; padding: 18px 20px; border: 1px solid #e0e0e0; border-radius: 8px;
+            background: var(--brand-bg); font-family: 'Montserrat', sans-serif; font-size: 1rem;
             color: var(--brand-text); transition: all 0.3s;
         }
         .form-group input:focus, .form-group textarea:focus {
             outline: none; border-color: var(--brand-burgundy); box-shadow: 0 0 0 3px rgba(108, 30, 52, 0.1);
         }
-        .submit-btn { width: 100%; border: none; border-radius: 5px; }
+        .submit-btn { width: 100%; border: none; border-radius: 8px; font-weight: 600; }
 
         /* --- FOOTER --- */
         footer {
             background: var(--brand-burgundy); color: #fff; text-align: center;
-            padding: 50px 5%; margin-top: 50px;
+            padding: 60px 5%; margin-top: 50px;
         }
-        .footer-logo { font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 15px; display: inline-block; }
-        .footer-social { margin: 20px 0; }
-        .footer-social a { color: var(--brand-gold); font-size: 1.5rem; margin: 0 10px; transition: color 0.3s; }
+        .footer-logo { font-size: 2rem; letter-spacing: 3px; margin-bottom: 15px; display: inline-block; }
+        .footer-social { margin: 25px 0; }
+        .footer-social a { color: var(--brand-gold); font-size: 1.8rem; margin: 0 12px; transition: color 0.3s; }
         .footer-social a:hover { color: #fff; }
-        .dev-credit { margin-top: 30px; color: rgba(255,255,255,0.6); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        .dev-credit { margin-top: 40px; color: rgba(255,255,255,0.6); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
 
         /* General Mobile Tweaks */
         @media (max-width: 768px) {
             .section-title { font-size: 1.8rem; }
-            .hero-logo { max-width: 220px; }
-            .breakdown-card { padding: 30px 20px; }
+            .hero-logo { max-width: 250px; }
+            .home-creative-heading { font-size: 1.6rem; }
+            .home-creative-text { font-size: 1rem; }
+            .breakdown-card { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -327,7 +363,6 @@
             <img src="logo.png" alt="EVARA" onerror="this.src='https://via.placeholder.com/150x50/6c1e34/fff?text=EVARA'">
         </div>
         
-        <!-- Desktop Menu -->
         <nav class="desktop-nav" id="desktopNav">
             <a onclick="navigate('home')" class="active">Home</a>
             <a onclick="navigate('about')">About</a>
@@ -336,13 +371,11 @@
             <a onclick="navigate('enquiry')">Enquire</a>
         </nav>
 
-        <!-- Mobile Hamburger Button -->
         <button class="menu-btn" id="menuBtn" onclick="toggleMobileMenu()">
             <span></span><span></span><span></span>
         </button>
     </header>
 
-    <!-- Mobile Fullscreen Overlay Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <a onclick="navigate('home'); toggleMobileMenu();">Home</a>
         <a onclick="navigate('about'); toggleMobileMenu();">About</a>
@@ -356,16 +389,31 @@
     =============================================== -->
     <section id="home" class="page-section active">
         <div class="container hero-wrapper">
-            <img src="logo.png" alt="EVARA Films" class="hero-logo" onerror="this.src='https://via.placeholder.com/300x100/6c1e34/fff?text=EVARA+FILMS'">
-            <p class="hero-text">Through our lens, we turn fleeting moments into everlasting treasures. Rooted in artistry, blending tradition with modern creativity.</p>
+            <!-- Large Creative Animated Logo -->
+            <img src="logo.png" alt="EVARA Films" class="hero-logo" onerror="this.src='https://via.placeholder.com/400x150/6c1e34/fff?text=EVARA+FILMS'">
+            
+            <!-- Creative Typography Block -->
+            <h2 class="brand-font home-creative-heading">Framing Moments: Your Trusted Photography Business</h2>
+            
+            <p class="home-creative-text">
+                Welcome to our photography business, where we turn fleeting moments into timeless treasures. 
+                With a passion for capturing life's beauty, we are dedicated to providing exceptional photography 
+                services that exceed your expectations.
+            </p>
+            
+            <p class="home-creative-contact">
+                "Contact us today to discuss your photography needs and let us begin the journey 
+                of capturing your special moments with passion and expertise."
+            </p>
+
             <a class="btn" onclick="navigate('portfolio')">Explore The Gallery</a>
             
             <!-- Direct Image Display -->
             <div class="featured-instagram">
-                <h3 class="brand-font">Latest Captures</h3>
+                <h3 class="brand-font">Our Latest Art</h3>
                 <div class="custom-media-grid">
-                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Latest Wedding Capture 1">
-                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80" alt="Latest Wedding Capture 2">
+                    <img src="https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=800&q=80" alt="Latest Capture 1">
+                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80" alt="Latest Capture 2">
                 </div>
             </div>
         </div>
@@ -376,11 +424,15 @@
     =============================================== -->
     <section id="about" class="page-section">
         <div class="container">
-            <h2 class="section-title">Our Evolution</h2>
+            <h2 class="section-title">Why Evara Films</h2>
             <p class="about-text">
-                <strong>EVARA</strong> is more than just a name— it’s a reflection of our passion for storytelling. 
+                <strong>EVARA</strong> is more than just a name— it’s a reflection of our passion for storytelling. <br><br>
                 Inspired by <em>“Ever”</em>, it symbolizes timeless moments, while <em>“Aura”</em> represents the beauty and emotions 
-                we capture in every frame. Rooted in culture, we ensure every photograph is a memory, a feeling, a story.
+                we capture in every frame. It resembles words like “Avara” (अवर्त) or “Eshvara” (ईश्वर), 
+                which relate to greatness, divinity, or protection. <br><br>
+                Rooted in artistry and culture, EVARA blends tradition with modern creativity, 
+                ensuring every photograph is more than just an image—it’s a memory, a feeling, a story. 
+                Through our lens, we turn fleeting moments into everlasting treasures.
             </p>
 
             <!-- Creative Looping Animation -->
@@ -389,27 +441,27 @@
                     <img src="pjd1.png" alt="Prajwal Dhanshetty" onerror="this.src='https://via.placeholder.com/200/fff/6c1e34?text=Prajwal'">
                 </div>
                 <div class="anim-element loop-is-now">
-                    <h2 class="brand-font" style="font-size: 2.2rem; letter-spacing: 4px; color: #2c2c2c;">IS NOW</h2>
+                    <h2 class="brand-font" style="font-size: 2.5rem; letter-spacing: 5px; color: #2c2c2c;">IS NOW</h2>
                 </div>
                 <div class="anim-element loop-evara">
                     <img src="logo.png" alt="EVARA Films" onerror="this.src='https://via.placeholder.com/250/fff/6c1e34?text=EVARA'">
                 </div>
             </div>
 
-            <h2 class="section-title" style="margin-top: 60px;">The Emblem</h2>
+            <h2 class="section-title" style="margin-top: 80px;">The Emblem</h2>
             <div class="breakdown-grid">
                 <div class="breakdown-card">
-                    <img src="e.png" alt="Initial E" class="breakdown-icon" onerror="this.src='https://via.placeholder.com/70/6c1e34/fff?text=E'">
+                    <img src="e.png" alt="Initial E" class="breakdown-icon" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23c5a059\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><circle cx=\'12\' cy=\'12\' r=\'10\'/></svg>'">
                     <h3 class="brand-font">Initial 'E'</h3>
                     <p>Highlighted elegantly in the abstract design, forming the core identity of the brand.</p>
                 </div>
                 <div class="breakdown-card">
-                    <img src="el.png" alt="Elegant Elephant" class="breakdown-icon" onerror="this.src='https://via.placeholder.com/70/6c1e34/fff?text=El'">
+                    <img src="el.png" alt="Elegant Elephant" class="breakdown-icon" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23c5a059\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><circle cx=\'12\' cy=\'12\' r=\'10\'/></svg>'">
                     <h3 class="brand-font">An Elegant Elephant</h3>
                     <p>A symbol of luck, prosperity, and the mighty strength that blesses new beginnings.</p>
                 </div>
                 <div class="breakdown-card">
-                    <img src="l.png" alt="Held Lotus" class="breakdown-icon" onerror="this.src='https://via.placeholder.com/70/6c1e34/fff?text=L'">
+                    <img src="l.png" alt="Held Lotus" class="breakdown-icon" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23c5a059\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><circle cx=\'12\' cy=\'12\' r=\'10\'/></svg>'">
                     <h3 class="brand-font">Held Lotus</h3>
                     <p>Represents charm, beauty, and the pure blossoming of a lifelong journey together.</p>
                 </div>
@@ -424,7 +476,7 @@
         <div class="container">
             <h2 class="section-title">Visual Treasures</h2>
             
-            <!-- Filters: Removed active class so none are colored on load -->
+            <!-- Filters: No buttons highlighted initially as requested -->
             <div class="filter-controls">
                 <button class="filter-btn" onclick="filterGallery('wedding')">Wedding</button>
                 <button class="filter-btn" onclick="filterGallery('prewedding')">Pre-Wedding</button>
@@ -439,12 +491,9 @@
             <!-- Direct Video Player -->
             <div class="featured-reel">
                 <h3 class="brand-font">Featured Film</h3>
-                <div class="custom-video-wrapper">
-                    <!-- Updated with a live sample video so it plays instantly -->
-                    <video autoplay loop muted playsinline>
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-walking-in-a-park-14811-large.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <!-- Instagram embed requires an iframe wrapper -->
+                <div style="max-width: 350px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(108, 30, 52, 0.15); background: #fff;">
+                    <iframe src="https://www.instagram.com/reel/DVlkic2kuyW/embed/?autoplay=1" width="100%" height="600" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay"></iframe>
                 </div>
             </div>
         </div>
@@ -484,7 +533,6 @@
             <h2 class="section-title">Let's Connect</h2>
             <div class="contact-wrapper">
                 
-                <!-- Contact Details -->
                 <div class="contact-info">
                     <h3 class="brand-font">Reach Out To Us</h3>
                     <p style="margin-bottom: 20px; color: #666;">We would love to hear about your beautiful story and how we can frame it forever.</p>
@@ -519,7 +567,6 @@
                     </div>
                 </div>
 
-                <!-- Form -->
                 <form action="mailto:theevarafilms@gmail.com" method="POST" enctype="text/plain">
                     <div class="form-group">
                         <input type="text" name="Name" placeholder="Your Full Name" required>
@@ -558,7 +605,7 @@
                        JAVASCRIPT 
     =============================================== -->
     <script>
-        // --- Custom Cursor Logic (Desktop Only) ---
+        // Custom Cursor Logic (Desktop Only)
         const cursorDot = document.getElementById('cursor-dot');
         const cursorOutline = document.getElementById('cursor-outline');
         
@@ -585,39 +632,34 @@
             });
         }
 
-        // --- Mobile Menu Toggle ---
+        // Mobile Menu Toggle
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         
         function toggleMobileMenu() {
             menuBtn.classList.toggle('open');
             mobileMenu.classList.toggle('active');
-            // Prevent body scroll when menu is open
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        // --- SPA Navigation ---
+        // SPA Navigation
         function navigate(sectionId) {
-            // Update Active Links in Desktop Nav
             document.querySelectorAll('.desktop-nav a').forEach(link => {
                 link.classList.remove('active');
-                // Check if onclick attribute contains the sectionId
                 if(link.getAttribute('onclick').includes(sectionId)) {
                     link.classList.add('active');
                 }
             });
 
-            // Isolate and show the correct section
             document.querySelectorAll('.page-section').forEach(sec => {
                 sec.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
             
-            // Scroll safely to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- Generate Gallery Images ---
+        // Generate Gallery Images
         const galleryGrid = document.getElementById('galleryGrid');
         const letters = ['a','b','c','d','e','f','g','h','i'];
         
@@ -639,13 +681,11 @@
             generateHTML('prewedding', 'pre') + 
             generateHTML('candid', 'can');
 
-        // --- Portfolio Filter Logic ---
+        // Portfolio Filter Logic
         function filterGallery(category) {
-            // Update active button styles
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Filter items
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(item => {
                 item.classList.remove('show');
