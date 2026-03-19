@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EVARA Films | Timeless Wedding Photography</title>
+    <title>EVARA Films | Timeless Storytelling</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- BRAND COLORS & VARIABLES --- */
         :root {
-            --brand-burgundy: #6c1e34; /* Extracted from EVARA logo */
-            --brand-bg: #FAF9F6; /* Minimalist cream white */
+            --brand-burgundy: #6c1e34;
+            --brand-bg: #FAF9F6;
             --brand-text: #2c2c2c;
             --brand-gold: #c5a059;
             --transition-speed: 0.6s;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -27,6 +24,7 @@
             color: var(--brand-text);
             line-height: 1.7;
             overflow-x: hidden;
+            cursor: none; /* Hide default cursor for custom one */
         }
 
         h1, h2, h3, .brand-font {
@@ -34,373 +32,202 @@
             color: var(--brand-burgundy);
         }
 
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background-color: var(--brand-gold);
+            border-radius: 50%; position: fixed;
+            pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid var(--brand-gold);
+            border-radius: 50%; position: fixed;
+            pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
         /* --- NAVIGATION --- */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(250, 249, 246, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            position: fixed; top: 0; width: 100%; padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(250, 249, 246, 0.95); backdrop-filter: blur(10px);
+            z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-
-        .nav-logo img {
-            height: 50px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .nav-logo img:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
+        .nav-logo img { height: 50px; cursor: pointer; transition: transform 0.3s; }
+        .nav-logo img:hover { transform: scale(1.05); }
+        .nav-links { display: flex; gap: 25px; }
         .nav-links a {
-            color: var(--brand-text);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            position: relative;
-            padding-bottom: 5px;
-            transition: color 0.3s;
+            color: var(--brand-text); text-decoration: none; font-size: 13px;
+            font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            cursor: pointer; position: relative; padding-bottom: 5px; transition: color 0.3s;
         }
-
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--brand-burgundy);
-            transition: width 0.3s;
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 0; background-color: var(--brand-burgundy); transition: width 0.3s;
         }
-
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--brand-burgundy);
-        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active { color: var(--brand-burgundy); }
 
         /* --- SPA SECTIONS --- */
         .page-section {
-            display: none;
-            min-height: 100vh;
-            padding: 120px 5% 60px;
+            display: none; min-height: 100vh; padding: 120px 5% 60px;
             animation: fadeUp var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
-
-        .page-section.active {
-            display: block;
-        }
+        .page-section.active { display: block; }
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 20px; }
         .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: var(--brand-gold);
-            margin: 15px auto 40px;
+            content: ''; display: block; width: 60px; height: 3px;
+            background: var(--brand-gold); margin: 15px auto 40px;
         }
 
         /* --- HOME HERO --- */
         #home {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 0;
             background: linear-gradient(rgba(250, 249, 246, 0.7), rgba(250, 249, 246, 0.9)), 
-                        url('https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=1920&q=80') center/cover;
+                        url('https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
         }
-
-        #home.active {
-            display: flex;
-        }
-
-        .hero-logo {
-            max-width: 300px;
-            margin-bottom: 30px;
-            animation: zoomIn 1.5s ease-out;
-        }
-
-        .hero-text {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-bottom: 40px;
-            color: var(--brand-text);
+        #home.active { display: flex; }
+        .hero-logo { max-width: 300px; margin-bottom: 30px; animation: float 6s ease-in-out infinite; }
+        .hero-text { font-size: 1.2rem; max-width: 700px; margin-bottom: 40px; color: var(--brand-text); }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
         .btn {
-            background: var(--brand-burgundy);
-            color: #fff;
-            padding: 15px 35px;
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            border: 1px solid var(--brand-burgundy);
-            transition: all 0.4s;
-            cursor: pointer;
+            background: var(--brand-burgundy); color: #fff; padding: 15px 35px;
+            text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1rem;
+            letter-spacing: 2px; border: 1px solid var(--brand-burgundy);
+            transition: all 0.4s; cursor: pointer; position: relative; overflow: hidden;
         }
-
-        .btn:hover {
-            background: transparent;
-            color: var(--brand-burgundy);
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
+        .btn:hover::before { left: 100%; }
 
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        /* --- ABOUT & CONTINUOUS ANIMATION --- */
+        .about-container { max-width: 900px; margin: 0 auto; text-align: center; }
+        .story-text { font-size: 1.1rem; margin-bottom: 30px; }
 
-        /* --- ABOUT & ANIMATION --- */
-        .about-container {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .story-text {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        /* PJD to EVARA Pivot Animation */
         .pivot-animation-box {
-            position: relative;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 50px 0;
-            overflow: hidden;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(108, 30, 52, 0.08);
+            position: relative; height: 350px; display: flex; justify-content: center;
+            align-items: center; margin: 50px 0; background: #fff;
+            border-radius: 10px; box-shadow: 0 15px 40px rgba(108, 30, 52, 0.08);
         }
 
-        .anim-img {
-            position: absolute;
-            max-width: 250px;
-            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        /* The Continuous Looping Keyframes */
+        .anim-element {
+            position: absolute; width: 250px; text-align: center;
+            opacity: 0; /* Hidden by default */
+        }
+        .anim-element img { width: 100%; }
+
+        .loop-pjd { animation: cyclePJD 12s infinite; }
+        .loop-is-now { animation: cycleIsNow 12s infinite; }
+        .loop-evara { animation: cycleEvara 12s infinite; }
+
+        @keyframes cyclePJD {
+            0%, 20% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+            25%, 100% { opacity: 0; transform: translateY(-20px) scale(0.9); filter: blur(5px); }
+        }
+        @keyframes cycleIsNow {
+            0%, 25% { opacity: 0; transform: scale(0.8); }
+            30%, 55% { opacity: 1; transform: scale(1); }
+            60%, 100% { opacity: 0; transform: scale(1.2); }
+        }
+        @keyframes cycleEvara {
+            0%, 60% { opacity: 0; transform: translateY(20px) scale(0.9); filter: blur(5px); }
+            65%, 95% { opacity: 1; transform: translateY(0) scale(1.1); filter: blur(0); }
+            100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
         }
 
-        #img-pjd { opacity: 1; transform: scale(1); }
-        #img-is-now { opacity: 0; transform: translateY(20px) scale(0.8); width: 150px; }
-        #img-evara { opacity: 0; transform: scale(0.5); }
-
-        /* Animation Sequence Classes (triggered by JS) */
-        .run-anim #img-pjd { opacity: 0; transform: translateY(-50px) scale(0.8); }
-        .run-anim #img-is-now { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.8s; }
-        .run-anim.step2 #img-is-now { opacity: 0; transform: scale(0.8); transition-delay: 0s; }
-        .run-anim.step2 #img-evara { opacity: 1; transform: scale(1); transition-delay: 0.5s; }
-
-        .logo-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .breakdown-card {
-            background: #fff;
-            padding: 30px;
-            border-top: 3px solid var(--brand-gold);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: left;
-        }
-
-        /* --- PORTFOLIO --- */
+        /* --- INSTAGRAM / PORTFOLIO SECTION --- */
         .filter-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px;
         }
-
         .filter-btn {
-            background: transparent;
-            border: 1px solid var(--brand-burgundy);
-            color: var(--brand-burgundy);
-            padding: 8px 20px;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
+            background: transparent; border: 1px solid var(--brand-burgundy);
+            color: var(--brand-burgundy); padding: 8px 20px; font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase; font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
         }
+        .filter-btn.active, .filter-btn:hover { background: var(--brand-burgundy); color: #fff; }
 
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--brand-burgundy);
-            color: #fff;
+        /* Simulated Instagram Grid */
+        .insta-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 5px;
         }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+        .insta-item {
+            position: relative; overflow: hidden; aspect-ratio: 1/1; cursor: pointer;
+            display: none;
         }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 5px;
-            aspect-ratio: 4/5;
-            display: none; /* JS handles this */
+        .insta-item.show { display: block; animation: fadeUp 0.6s ease; }
+        .insta-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
-
-        .gallery-item.show {
-            display: block;
-            animation: fadeUp 0.6s ease;
+        .insta-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+            display: flex; justify-content: center; align-items: center; gap: 20px;
+            color: #fff; font-size: 1.2rem; opacity: 0; transition: opacity 0.3s;
         }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.08);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(108, 30, 52, 0.9));
-            color: #fff;
-            transition: bottom 0.4s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            bottom: 0;
-        }
-
+        .insta-item:hover img { transform: scale(1.1); }
+        .insta-item:hover .insta-overlay { opacity: 1; }
+        
         /* --- SERVICES --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
         .service-box {
-            text-align: center;
-            padding: 40px 20px;
-            background: #fff;
-            border: 1px solid rgba(108, 30, 52, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center; padding: 40px 20px; background: #fff;
+            border: 1px solid rgba(108, 30, 52, 0.1); transition: transform 0.4s, box-shadow 0.4s;
         }
-
         .service-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(108, 30, 52, 0.1);
+            transform: translateY(-15px); box-shadow: 0 20px 40px rgba(108, 30, 52, 0.15);
             border-color: var(--brand-gold);
-        }
-
-        .service-box h3 {
-            margin-bottom: 15px;
-            font-size: 1.5rem;
         }
 
         /* --- ENQUIRY FORM --- */
         .form-container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 5px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 700px; margin: 0 auto; background: #fff; padding: 40px;
+            border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border-top: 4px solid var(--brand-burgundy);
         }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
+        .input-group { margin-bottom: 20px; }
         .input-group input, .input-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            background: var(--brand-bg);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            color: var(--brand-text);
+            width: 100%; padding: 15px; border: 1px solid #ddd; background: var(--brand-bg);
+            font-family: 'Montserrat', sans-serif; font-size: 1rem; color: var(--brand-text);
             transition: border-color 0.3s;
         }
-
         .input-group input:focus, .input-group textarea:focus {
-            outline: none;
-            border-color: var(--brand-burgundy);
-        }
-
-        .submit-btn {
-            width: 100%;
-            border: none;
+            outline: none; border-color: var(--brand-burgundy);
         }
 
         /* --- FOOTER --- */
         footer {
-            background: var(--brand-burgundy);
-            color: #fff;
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
+            background: var(--brand-burgundy); color: #fff; text-align: center; padding: 40px 20px;
         }
-
         .dev-credit {
-            margin-top: 15px;
-            color: var(--brand-gold);
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            margin-top: 15px; color: var(--brand-gold); font-size: 0.8rem;
+            letter-spacing: 1px; text-transform: uppercase;
         }
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
+            body { cursor: auto; } /* Disable custom cursor on mobile */
+            .cursor-dot, .cursor-outline { display: none; }
             .nav-links {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background: #fff;
-                padding: 15px 0;
-                justify-content: center;
-                gap: 15px;
-                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                position: fixed; bottom: 0; left: 0; width: 100%; background: #fff;
+                padding: 15px 0; justify-content: center; gap: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             }
             .nav-links a { font-size: 11px; }
             .hero-logo { max-width: 200px; }
@@ -410,11 +237,14 @@
 </head>
 <body>
 
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
     <nav>
         <div class="nav-logo" onclick="navigate('home')">
-            <img src="logo.png" alt="EVARA Films Logo" onerror="this.src='https://via.placeholder.com/150x50/6c1e34/fff?text=EVARA'">
+            <img src="logo.png" alt="EVARA" onerror="this.src='https://via.placeholder.com/150x50/6c1e34/fff?text=EVARA'">
         </div>
-        <div class="nav-links" id="navLinks">
+        <div class="nav-links">
             <a onclick="navigate('home')" class="active">Home</a>
             <a onclick="navigate('about')">About</a>
             <a onclick="navigate('portfolio')">Portfolio</a>
@@ -425,80 +255,86 @@
 
     <section id="home" class="page-section active">
         <img src="logo.png" alt="EVARA Films" class="hero-logo" onerror="this.src='https://via.placeholder.com/300x100/6c1e34/fff?text=EVARA+FILMS'">
-        <p class="hero-text">Through our lens, we turn fleeting moments into everlasting treasures. Rooted in artistry and culture, blending tradition with modern creativity.</p>
-        <button class="btn" onclick="navigate('portfolio')">Explore Our Story</button>
+        <p class="hero-text">Through our lens, we turn fleeting moments into everlasting treasures. Rooted in artistry, blending tradition with modern creativity.</p>
+        <button class="btn" onclick="navigate('portfolio')">Explore The Gallery</button>
     </section>
 
     <section id="about" class="page-section">
-        <h2 class="section-title">Our Story</h2>
+        <h2 class="section-title">Our Evolution</h2>
         <div class="about-container">
+            <div class="pivot-animation-box">
+                <div class="anim-element loop-pjd">
+                    <img src="pjd1.png" alt="Prajwal Dhanshetty" onerror="this.src='https://via.placeholder.com/200/fff/6c1e34?text=Prajwal'">
+                </div>
+                <div class="anim-element loop-is-now">
+                    <h2 class="brand-font" style="font-size: 2.5rem; letter-spacing: 5px; color: #2c2c2c;">IS NOW</h2>
+                </div>
+                <div class="anim-element loop-evara">
+                    <img src="logo.png" alt="EVARA Films" onerror="this.src='https://via.placeholder.com/250/fff/6c1e34?text=EVARA'">
+                </div>
+            </div>
+
             <p class="story-text">
                 <strong>EVARA</strong> is more than just a name— it’s a reflection of our passion for storytelling. 
                 Inspired by <em>“Ever”</em>, it symbolizes timeless moments, while <em>“Aura”</em> represents the beauty and emotions 
-                we capture in every frame. It resembles words like “Avara” (अवर्त) or “Eshvara” (ईश्वर), which relate to greatness, divinity, or protection.
+                we capture in every frame. 
             </p>
-
-            <div class="pivot-animation-box" id="animBox">
-                <img src="pjd1.png" id="img-pjd" class="anim-img" alt="Prajwal Dhanshetty" onerror="this.src='https://via.placeholder.com/200/fff/6c1e34?text=Prajwal'">
-                <h2 id="img-is-now" class="anim-img brand-font" style="color:var(--brand-text);">IS NOW</h2>
-                <img src="logo.png" id="img-evara" class="anim-img" alt="EVARA Films" onerror="this.src='https://via.placeholder.com/200/fff/6c1e34?text=EVARA'">
-            </div>
-
-            <p class="story-text">
-                Rooted in artistry and culture, ensuring every photograph is more than just an image—it’s a memory, a feeling, a story.
-            </p>
-
-            <div class="logo-breakdown">
-                <div class="breakdown-card">
-                    <h3>Initial 'E'</h3>
-                    <p>Highlighted in the abstract design language, the 'E' in the elephant's ear forms the core of our new identity.</p>
-                </div>
-                <div class="breakdown-card">
-                    <h3>An Elegant Elephant</h3>
-                    <p>A symbol of luck, prosperity, and wisdom. Representing the mighty strength to remove obstacles and bless new beginnings.</p>
-                </div>
-                <div class="breakdown-card">
-                    <h3>Held Lotus</h3>
-                    <p>Represents unmatched charm and purity, perfectly capturing the royal and classy essence of Indian weddings.</p>
-                </div>
-            </div>
         </div>
     </section>
 
     <section id="portfolio" class="page-section">
-        <h2 class="section-title">Visual Treasures</h2>
+        <h2 class="section-title"><i class="fab fa-instagram" style="margin-right: 10px;"></i>Live Portfolio</h2>
+        <p style="text-align: center; margin-bottom: 30px;">Follow us <a href="https://www.instagram.com/evarafilms.in/" target="_blank" style="color: var(--brand-gold);">@evarafilms.in</a></p>
         
         <div class="filter-container">
-            <button class="filter-btn active" onclick="filterPortfolio('all')">All</button>
-            <button class="filter-btn" onclick="filterPortfolio('wedding')">Wedding</button>
-            <button class="filter-btn" onclick="filterPortfolio('prewedding')">Pre-Wedding</button>
-            <button class="filter-btn" onclick="filterPortfolio('candid')">Candid</button>
+            <button class="filter-btn active" onclick="filterPortfolio('all')">All Feed</button>
+            <button class="filter-btn" onclick="filterPortfolio('wedding')">Weddings</button>
+            <button class="filter-btn" onclick="filterPortfolio('prewedding')">Pre-Weddings</button>
+            <button class="filter-btn" onclick="filterPortfolio('candid')">Candids</button>
         </div>
 
-        <div class="gallery">
-            <div class="gallery-item wedding show">
-                <img src="https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=800&q=80" alt="Wedding Moments">
-                <div class="gallery-overlay">Traditional Wedding</div>
+        <div class="insta-grid">
+            <div class="insta-item wedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
+                <img src="https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=600&q=80" alt="Wedding">
+                <div class="insta-overlay">
+                    <span><i class="fas fa-heart"></i> 412</span>
+                    <span><i class="fas fa-comment"></i> 28</span>
+                </div>
             </div>
-            <div class="gallery-item prewedding show">
-                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80" alt="Pre Wedding Shoot">
-                <div class="gallery-overlay">Pre-Wedding Story</div>
+            <div class="insta-item prewedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
+                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80" alt="Pre Wedding">
+                <div class="insta-overlay">
+                    <span><i class="fas fa-heart"></i> 389</span>
+                    <span><i class="fas fa-comment"></i> 15</span>
+                </div>
             </div>
-            <div class="gallery-item candid show">
-                <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=800&q=80" alt="Candid Joy">
-                <div class="gallery-overlay">Joyful Candids</div>
+            <div class="insta-item candid show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
+                <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80" alt="Candid">
+                <div class="insta-overlay">
+                    <span><i class="fas fa-heart"></i> 520</span>
+                    <span><i class="fas fa-comment"></i> 42</span>
+                </div>
             </div>
-            <div class="gallery-item wedding show">
-                <img src="https://images.unsplash.com/photo-1550005809-91ad75fb315f?auto=format&fit=crop&w=800&q=80" alt="Wedding Rituals">
-                <div class="gallery-overlay">Royal Rituals</div>
+            <div class="insta-item wedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
+                <img src="https://images.unsplash.com/photo-1550005809-91ad75fb315f?auto=format&fit=crop&w=600&q=80" alt="Wedding">
+                <div class="insta-overlay">
+                    <span><i class="fas fa-heart"></i> 890</span>
+                    <span><i class="fas fa-comment"></i> 64</span>
+                </div>
             </div>
-            <div class="gallery-item candid show">
-                <img src="https://images.unsplash.com/photo-1610173827002-628ee3f65611?auto=format&fit=crop&w=800&q=80" alt="Candid Moments">
-                <div class="gallery-overlay">Raw Emotions</div>
+            <div class="insta-item prewedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80" alt="Pre Wedding">
+                <div class="insta-overlay">
+                    <span><i class="fas fa-heart"></i> 310</span>
+                    <span><i class="fas fa-comment"></i> 12</span>
+                </div>
             </div>
-            <div class="gallery-item prewedding show">
-                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80" alt="Pre Wedding Creative">
-                <div class="gallery-overlay">Artistic Pre-Wedding</div>
+            <div class="insta-item candid show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
+                <img src="https://images.unsplash.com/photo-1610173827002-628ee3f65611?auto=format&fit=crop&w=600&q=80" alt="Candid">
+                <div class="insta-overlay">
+                    <span><i class="fas fa-heart"></i> 645</span>
+                    <span><i class="fas fa-comment"></i> 33</span>
+                </div>
             </div>
         </div>
     </section>
@@ -507,20 +343,16 @@
         <h2 class="section-title">Our Offerings</h2>
         <div class="services-grid">
             <div class="service-box">
-                <h3>Wedding Photography</h3>
+                <h3 class="brand-font">Wedding Photography</h3>
                 <p>Immersive, cinematic coverage of your special day, capturing the rituals, royalty, and overwhelming joy.</p>
             </div>
             <div class="service-box">
-                <h3>Pre-Wedding Shoots</h3>
-                <p>Conceptualized storytelling through beautifully directed shoots to celebrate your bond before the big day.</p>
+                <h3 class="brand-font">Pre-Wedding</h3>
+                <p>Conceptualized storytelling through beautifully directed shoots to celebrate your bond.</p>
             </div>
             <div class="service-box">
-                <h3>Candid Captures</h3>
-                <p>Unobtrusive photography freezing genuine smiles, tears, and spontaneous moments of magic.</p>
-            </div>
-            <div class="service-box">
-                <h3>Professional Shoots</h3>
-                <p>High-end editorial and conceptual photography blending modern creativity with timeless aesthetics.</p>
+                <h3 class="brand-font">Candid Captures</h3>
+                <p>Unobtrusive photography freezing genuine smiles, tears, and spontaneous magic.</p>
             </div>
         </div>
     </section>
@@ -528,7 +360,7 @@
     <section id="enquiry" class="page-section">
         <h2 class="section-title">Connect With Us</h2>
         <div class="form-container">
-            <form action="mailto:contact@evarafilms.in" method="POST" enctype="text/plain">
+            <form action="mailto:hello@evarafilms.in" method="POST" enctype="text/plain">
                 <div class="input-group">
                     <input type="text" name="Name" placeholder="Full Name" required>
                 </div>
@@ -536,83 +368,68 @@
                     <input type="email" name="Email" placeholder="Email Address" required>
                 </div>
                 <div class="input-group">
-                    <input type="tel" name="Phone" placeholder="Phone Number" required>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="EventType_and_Date" placeholder="Type of Event & Date (e.g., Wedding - 12 Nov)">
-                </div>
-                <div class="input-group">
                     <textarea name="Message" rows="5" placeholder="Tell us more about your beautiful day..." required></textarea>
                 </div>
-                <button type="submit" class="btn submit-btn">Send Enquiry</button>
+                <button type="submit" class="btn" style="width: 100%;">Send Enquiry</button>
             </form>
         </div>
     </section>
 
     <footer>
         <div class="brand-font" style="font-size: 1.5rem; margin-bottom: 10px;">EVARA FILMS</div>
-        <p>Turning fleeting moments into everlasting treasures.</p>
-        <div style="margin: 20px 0;">
-            <a href="https://www.instagram.com/evarafilms.in/" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-weight: bold;">Follow us on Instagram</a>
-        </div>
         <p>&copy; 2026 EVARA Films. All Rights Reserved.</p>
         <div class="dev-credit">developed by Kunal Dongare</div>
     </footer>
 
     <script>
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        
+        window.addEventListener('mousemove', function(e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            // Adding a slight delay to the outline for a smooth trailing effect
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Hover effect for buttons/links expanding the cursor
+        document.querySelectorAll('a, button, .insta-item, .nav-logo').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.width = '60px';
+                cursorOutline.style.height = '60px';
+                cursorOutline.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+
         // SPA Navigation
         function navigate(sectionId) {
-            // Update Navigation active state
             document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
             event.target.classList.add('active');
-
-            // Hide all sections
-            document.querySelectorAll('.page-section').forEach(sec => {
-                sec.classList.remove('active');
-            });
-            
-            // Show target section
-            const target = document.getElementById(sectionId);
-            target.classList.add('active');
-
-            // Handle the PJD -> EVARA Animation
-            const animBox = document.getElementById('animBox');
-            if(sectionId === 'about') {
-                // Reset animation classes first
-                animBox.classList.remove('run-anim', 'step2');
-                
-                // Trigger animation sequence
-                setTimeout(() => {
-                    animBox.classList.add('run-anim');
-                    // Trigger step 2 after 2 seconds
-                    setTimeout(() => {
-                        animBox.classList.add('step2');
-                    }, 2000);
-                }, 300);
-            } else {
-                // Reset when leaving page
-                animBox.classList.remove('run-anim', 'step2');
-            }
-
-            // Scroll to top
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Portfolio Filtering
         function filterPortfolio(category) {
-            // Update active button
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-
-            // Filter images
-            const items = document.querySelectorAll('.gallery-item');
-            items.forEach(item => {
-                // Quick reset of animation class
+            document.querySelectorAll('.insta-item').forEach(item => {
                 item.classList.remove('show');
-                
                 if (category === 'all' || item.classList.contains(category)) {
-                    // Slight delay to re-trigger CSS animation
                     setTimeout(() => item.classList.add('show'), 50);
                 }
             });
