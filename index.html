@@ -4,138 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EVARA Films | Timeless Storytelling</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* --- BRAND COLORS & VARIABLES --- */
+        /* --- BRAND VARIABLES --- */
         :root {
             --brand-burgundy: #6c1e34;
             --brand-bg: #FAF9F6;
             --brand-text: #2c2c2c;
             --brand-gold: #c5a059;
-            --transition-speed: 0.6s;
+            --transition: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
+        /* --- GLOBAL RESETS --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--brand-bg);
             color: var(--brand-text);
-            line-height: 1.7;
+            line-height: 1.8;
             overflow-x: hidden;
-            cursor: none; /* Hide default cursor for custom one */
+            -webkit-font-smoothing: antialiased;
         }
+
+        /* Hide cursor for custom desktop cursor */
+        @media (min-width: 1025px) { body { cursor: none; } }
 
         h1, h2, h3, .brand-font {
             font-family: 'Cinzel', serif;
             color: var(--brand-burgundy);
+            font-weight: 500;
         }
 
-        /* --- CUSTOM CURSOR --- */
-        .cursor-dot {
-            width: 8px; height: 8px;
-            background-color: var(--brand-gold);
-            border-radius: 50%; position: fixed;
-            pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%);
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- CUSTOM DESKTOP CURSOR --- */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            display: none; /* Hidden on mobile */
         }
-        .cursor-outline {
-            width: 40px; height: 40px;
-            border: 1px solid var(--brand-gold);
-            border-radius: 50%; position: fixed;
-            pointer-events: none; z-index: 9998;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        @media (min-width: 1025px) {
+            .cursor-dot, .cursor-outline { display: block; }
+            .cursor-dot { width: 6px; height: 6px; background-color: var(--brand-gold); }
+            .cursor-outline { width: 35px; height: 35px; border: 1px solid rgba(197, 160, 89, 0.7); transition: width 0.2s, height 0.2s, background-color 0.2s; z-index: 9998; }
         }
 
         /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 5%;
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 15px 5%; background: rgba(250, 249, 246, 0.98);
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(108, 30, 52, 0.1);
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(250, 249, 246, 0.95); backdrop-filter: blur(10px);
-            z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .nav-logo img { height: 50px; cursor: pointer; transition: transform 0.3s; }
-        .nav-logo img:hover { transform: scale(1.05); }
-        .nav-links { display: flex; gap: 25px; }
-        .nav-links a {
-            color: var(--brand-text); text-decoration: none; font-size: 13px;
-            font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+
+        .logo-container img { height: 45px; cursor: pointer; transition: transform 0.3s; }
+        .logo-container img:hover { transform: scale(1.05); }
+
+        /* Desktop Nav */
+        .desktop-nav { display: none; gap: 35px; }
+        .desktop-nav a {
+            text-decoration: none; color: var(--brand-text); font-size: 13px;
+            font-weight: 500; text-transform: uppercase; letter-spacing: 2px;
             cursor: pointer; position: relative; padding-bottom: 5px; transition: color 0.3s;
         }
-        .nav-links a::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: 0; left: 0; background-color: var(--brand-burgundy); transition: width 0.3s;
+        .desktop-nav a::after {
+            content: ''; position: absolute; left: 0; bottom: 0; width: 0;
+            height: 1px; background: var(--brand-burgundy); transition: width var(--transition);
         }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: var(--brand-burgundy); }
+        .desktop-nav a:hover::after, .desktop-nav a.active::after { width: 100%; }
+        .desktop-nav a:hover, .desktop-nav a.active { color: var(--brand-burgundy); }
+
+        /* Mobile Hamburger */
+        .menu-btn {
+            display: block; cursor: pointer; z-index: 1001; background: none; border: none;
+            width: 30px; height: 20px; position: relative;
+        }
+        .menu-btn span {
+            display: block; width: 100%; height: 2px; background: var(--brand-burgundy);
+            position: absolute; transition: var(--transition);
+        }
+        .menu-btn span:nth-child(1) { top: 0; }
+        .menu-btn span:nth-child(2) { top: 9px; }
+        .menu-btn span:nth-child(3) { top: 18px; }
+        .menu-btn.open span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+        .menu-btn.open span:nth-child(2) { opacity: 0; }
+        .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+
+        @media (min-width: 768px) {
+            .desktop-nav { display: flex; }
+            .menu-btn { display: none; }
+        }
+
+        /* Mobile Overlay Menu */
+        .mobile-menu {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--brand-bg); z-index: 999; display: flex;
+            flex-direction: column; justify-content: center; align-items: center; gap: 30px;
+            opacity: 0; pointer-events: none; transition: opacity var(--transition);
+        }
+        .mobile-menu.active { opacity: 1; pointer-events: all; }
+        .mobile-menu a {
+            font-family: 'Cinzel', serif; font-size: 2rem; color: var(--brand-burgundy);
+            text-decoration: none; opacity: 0; transform: translateY(20px); transition: all 0.4s;
+        }
+        .mobile-menu.active a { opacity: 1; transform: translateY(0); }
+        .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu a:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu a:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu a:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu a:nth-child(5) { transition-delay: 0.5s; }
 
         /* --- SPA SECTIONS --- */
-        .page-section {
-            display: none; min-height: 100vh; padding: 120px 5% 60px;
-            animation: fadeUp var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        .page-section.active { display: block; }
+        /* This strict rule fixes the overlap issue */
+        .page-section { display: none !important; min-height: 100vh; padding-top: 100px; padding-bottom: 60px; }
+        .page-section.active { display: block !important; animation: fadeIn 0.6s ease forwards; }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+        
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 10px; }
         .section-title::after {
-            content: ''; display: block; width: 60px; height: 3px;
+            content: ''; display: block; width: 50px; height: 2px;
             background: var(--brand-gold); margin: 15px auto 40px;
         }
 
-        /* --- HOME HERO --- */
-        #home {
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; padding: 0;
-            background: linear-gradient(rgba(250, 249, 246, 0.7), rgba(250, 249, 246, 0.9)), 
-                        url('https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+        /* --- 1. HOME --- */
+        .hero-wrapper {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; min-height: 70vh;
         }
-        #home.active { display: flex; }
-        .hero-logo { max-width: 300px; margin-bottom: 30px; animation: float 6s ease-in-out infinite; }
-        .hero-text { font-size: 1.2rem; max-width: 700px; margin-bottom: 40px; color: var(--brand-text); }
+        .hero-logo { max-width: 280px; margin-bottom: 30px; animation: float 6s ease-in-out infinite; }
         
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
 
+        .hero-text { font-size: 1.1rem; max-width: 700px; margin-bottom: 40px; color: var(--brand-text); }
+        
         .btn {
-            background: var(--brand-burgundy); color: #fff; padding: 15px 35px;
-            text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1rem;
-            letter-spacing: 2px; border: 1px solid var(--brand-burgundy);
-            transition: all 0.4s; cursor: pointer; position: relative; overflow: hidden;
+            display: inline-block; background: var(--brand-burgundy); color: #fff;
+            padding: 14px 35px; text-decoration: none; font-family: 'Cinzel', serif;
+            font-size: 1rem; letter-spacing: 2px; border: 1px solid var(--brand-burgundy);
+            transition: all 0.4s; cursor: pointer; text-transform: uppercase;
         }
-        .btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+        .btn:hover { background: transparent; color: var(--brand-burgundy); }
+
+        .featured-instagram { margin-top: 80px; text-align: center; }
+        .featured-instagram h3 { font-size: 1.5rem; margin-bottom: 20px; }
+        .iframe-container {
+            max-width: 400px; margin: 0 auto; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); background: #fff;
         }
-        .btn:hover::before { left: 100%; }
 
-        /* --- ABOUT & CONTINUOUS ANIMATION --- */
-        .about-container { max-width: 900px; margin: 0 auto; text-align: center; }
-        .story-text { font-size: 1.1rem; margin-bottom: 30px; }
+        /* --- CUSTOM MEDIA DISPLAYS (NO INSTAGRAM BORDERS) --- */
+        .custom-media-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; max-width: 800px; margin: 0 auto;
+        }
+        .custom-media-grid img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
+            aspect-ratio: 4/5; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.4s;
+        }
+        .custom-media-grid img:hover { transform: scale(1.03); }
+        
+        .custom-video-wrapper {
+            max-width: 350px; margin: 0 auto; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(108, 30, 52, 0.2); background: #000;
+        }
+        .custom-video-wrapper video {
+            width: 100%; height: 100%; display: block; object-fit: cover; aspect-ratio: 9/16;
+        }
 
+        /* --- 2. ABOUT --- */
+        .about-text { text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.05rem; }
+        
+        /* Continuous Looping Animation Box */
         .pivot-animation-box {
-            position: relative; height: 350px; display: flex; justify-content: center;
-            align-items: center; margin: 50px 0; background: #fff;
-            border-radius: 10px; box-shadow: 0 15px 40px rgba(108, 30, 52, 0.08);
+            position: relative; height: 300px; display: flex; justify-content: center;
+            align-items: center; margin: 0 auto 60px; max-width: 600px; background: #fff;
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(108, 30, 52, 0.06); overflow: hidden;
         }
-
-        /* The Continuous Looping Keyframes */
-        .anim-element {
-            position: absolute; width: 250px; text-align: center;
-            opacity: 0; /* Hidden by default */
-        }
-        .anim-element img { width: 100%; }
-
+        .anim-element { position: absolute; width: 200px; text-align: center; opacity: 0; }
+        
         .loop-pjd { animation: cyclePJD 12s infinite; }
         .loop-is-now { animation: cycleIsNow 12s infinite; }
         .loop-evara { animation: cycleEvara 12s infinite; }
@@ -155,285 +216,452 @@
             100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
         }
 
-        /* --- INSTAGRAM / PORTFOLIO SECTION --- */
-        .filter-container {
+        /* Logo Breakdown Grid */
+        .breakdown-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+        }
+        .breakdown-card {
+            background: #fff; padding: 40px 30px; text-align: center; border-radius: 8px;
+            border-bottom: 3px solid var(--brand-gold); box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            transition: transform 0.3s;
+        }
+        .breakdown-card:hover { transform: translateY(-10px); }
+        .breakdown-icon { width: 70px; height: 70px; object-fit: contain; margin: 0 auto 20px; }
+        .breakdown-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+
+        /* --- 3. PORTFOLIO --- */
+        .filter-controls {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px;
         }
         .filter-btn {
-            background: transparent; border: 1px solid var(--brand-burgundy);
-            color: var(--brand-burgundy); padding: 8px 20px; font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase; font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
+            background: transparent; border: 1px solid var(--brand-burgundy); color: var(--brand-burgundy);
+            padding: 8px 25px; font-family: 'Montserrat', sans-serif; text-transform: uppercase;
+            font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; border-radius: 30px;
         }
         .filter-btn.active, .filter-btn:hover { background: var(--brand-burgundy); color: #fff; }
 
-        /* Simulated Instagram Grid */
-        .insta-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 5px;
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;
         }
-        .insta-item {
-            position: relative; overflow: hidden; aspect-ratio: 1/1; cursor: pointer;
-            display: none;
+        .gallery-item {
+            position: relative; overflow: hidden; aspect-ratio: 4/5; border-radius: 8px; display: none;
+            background: #eaeaea; /* Placeholder color while image loads */
         }
-        .insta-item.show { display: block; animation: fadeUp 0.6s ease; }
-        .insta-item img {
+        .gallery-item.show { display: block; animation: fadeIn 0.6s ease forwards; }
+        .gallery-item img {
             width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
-        .insta-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.6);
-            display: flex; justify-content: center; align-items: center; gap: 20px;
-            color: #fff; font-size: 1.2rem; opacity: 0; transition: opacity 0.3s;
-        }
-        .insta-item:hover img { transform: scale(1.1); }
-        .insta-item:hover .insta-overlay { opacity: 1; }
-        
-        /* --- SERVICES --- */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .gallery-item:hover img { transform: scale(1.08); }
+
+        .featured-reel { margin-top: 60px; text-align: center; }
+        .featured-reel h3 { margin-bottom: 20px; }
+
+        /* --- 4. SERVICES --- */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .service-box {
-            text-align: center; padding: 40px 20px; background: #fff;
-            border: 1px solid rgba(108, 30, 52, 0.1); transition: transform 0.4s, box-shadow 0.4s;
+            text-align: center; padding: 50px 30px; background: #fff; border-radius: 8px;
+            border: 1px solid rgba(108, 30, 52, 0.08); transition: all 0.4s;
         }
         .service-box:hover {
-            transform: translateY(-15px); box-shadow: 0 20px 40px rgba(108, 30, 52, 0.15);
+            transform: translateY(-10px); box-shadow: 0 20px 40px rgba(108, 30, 52, 0.1);
             border-color: var(--brand-gold);
         }
+        .service-box i { font-size: 2.5rem; color: var(--brand-gold); margin-bottom: 20px; }
+        .service-box h3 { font-size: 1.4rem; margin-bottom: 15px; }
+        .service-box p { font-size: 0.95rem; color: #555; }
 
-        /* --- ENQUIRY FORM --- */
-        .form-container {
-            max-width: 700px; margin: 0 auto; background: #fff; padding: 40px;
-            border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        /* --- 5. ENQUIRY --- */
+        .contact-wrapper {
+            display: grid; grid-template-columns: 1fr; gap: 50px; background: #fff;
+            padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);
             border-top: 4px solid var(--brand-burgundy);
         }
-        .input-group { margin-bottom: 20px; }
-        .input-group input, .input-group textarea {
-            width: 100%; padding: 15px; border: 1px solid #ddd; background: var(--brand-bg);
-            font-family: 'Montserrat', sans-serif; font-size: 1rem; color: var(--brand-text);
-            transition: border-color 0.3s;
+        @media (min-width: 800px) { .contact-wrapper { grid-template-columns: 1fr 1.5fr; padding: 60px; } }
+
+        .contact-info { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+        .contact-info h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .info-item { display: flex; align-items: flex-start; gap: 15px; font-size: 0.95rem; color: #444; }
+        .info-item i { color: var(--brand-gold); font-size: 1.2rem; margin-top: 4px; }
+        .info-item a { color: inherit; text-decoration: none; transition: color 0.3s; }
+        .info-item a:hover { color: var(--brand-burgundy); }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 15px 20px; border: 1px solid #e0e0e0; border-radius: 5px;
+            background: var(--brand-bg); font-family: 'Montserrat', sans-serif; font-size: 0.95rem;
+            color: var(--brand-text); transition: all 0.3s;
         }
-        .input-group input:focus, .input-group textarea:focus {
-            outline: none; border-color: var(--brand-burgundy);
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--brand-burgundy); box-shadow: 0 0 0 3px rgba(108, 30, 52, 0.1);
         }
+        .submit-btn { width: 100%; border: none; border-radius: 5px; }
 
         /* --- FOOTER --- */
         footer {
-            background: var(--brand-burgundy); color: #fff; text-align: center; padding: 40px 20px;
+            background: var(--brand-burgundy); color: #fff; text-align: center;
+            padding: 50px 5%; margin-top: 50px;
         }
-        .dev-credit {
-            margin-top: 15px; color: var(--brand-gold); font-size: 0.8rem;
-            letter-spacing: 1px; text-transform: uppercase;
-        }
+        .footer-logo { font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 15px; display: inline-block; }
+        .footer-social { margin: 20px 0; }
+        .footer-social a { color: var(--brand-gold); font-size: 1.5rem; margin: 0 10px; transition: color 0.3s; }
+        .footer-social a:hover { color: #fff; }
+        .dev-credit { margin-top: 30px; color: rgba(255,255,255,0.6); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* General Mobile Tweaks */
         @media (max-width: 768px) {
-            body { cursor: auto; } /* Disable custom cursor on mobile */
-            .cursor-dot, .cursor-outline { display: none; }
-            .nav-links {
-                position: fixed; bottom: 0; left: 0; width: 100%; background: #fff;
-                padding: 15px 0; justify-content: center; gap: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            }
-            .nav-links a { font-size: 11px; }
-            .hero-logo { max-width: 200px; }
-            .section-title { font-size: 2rem; }
+            .section-title { font-size: 1.8rem; }
+            .hero-logo { max-width: 220px; }
+            .breakdown-card { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Custom Cursor (Desktop Only) -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
 
-    <nav>
-        <div class="nav-logo" onclick="navigate('home')">
+    <!-- Navigation Header -->
+    <header>
+        <div class="logo-container" onclick="navigate('home')">
             <img src="logo.png" alt="EVARA" onerror="this.src='https://via.placeholder.com/150x50/6c1e34/fff?text=EVARA'">
         </div>
-        <div class="nav-links">
+        
+        <!-- Desktop Menu -->
+        <nav class="desktop-nav" id="desktopNav">
             <a onclick="navigate('home')" class="active">Home</a>
             <a onclick="navigate('about')">About</a>
             <a onclick="navigate('portfolio')">Portfolio</a>
             <a onclick="navigate('services')">Services</a>
             <a onclick="navigate('enquiry')">Enquire</a>
-        </div>
-    </nav>
+        </nav>
 
+        <!-- Mobile Hamburger Button -->
+        <button class="menu-btn" id="menuBtn" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Fullscreen Overlay Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a onclick="navigate('home'); toggleMobileMenu();">Home</a>
+        <a onclick="navigate('about'); toggleMobileMenu();">About</a>
+        <a onclick="navigate('portfolio'); toggleMobileMenu();">Portfolio</a>
+        <a onclick="navigate('services'); toggleMobileMenu();">Services</a>
+        <a onclick="navigate('enquiry'); toggleMobileMenu();">Enquire</a>
+    </div>
+
+    <!-- ==============================================
+                     1. HOME SECTION 
+    =============================================== -->
     <section id="home" class="page-section active">
-        <img src="logo.png" alt="EVARA Films" class="hero-logo" onerror="this.src='https://via.placeholder.com/300x100/6c1e34/fff?text=EVARA+FILMS'">
-        <p class="hero-text">Through our lens, we turn fleeting moments into everlasting treasures. Rooted in artistry, blending tradition with modern creativity.</p>
-        <button class="btn" onclick="navigate('portfolio')">Explore The Gallery</button>
+        <div class="container hero-wrapper">
+            <img src="logo.png" alt="EVARA Films" class="hero-logo" onerror="this.src='https://via.placeholder.com/300x100/6c1e34/fff?text=EVARA+FILMS'">
+            <p class="hero-text">Through our lens, we turn fleeting moments into everlasting treasures. Rooted in artistry, blending tradition with modern creativity.</p>
+            <a class="btn" onclick="navigate('portfolio')">Explore The Gallery</a>
+            
+            <!-- Direct Image Display (Replaced Instagram iframe) -->
+            <div class="featured-instagram">
+                <h3 class="brand-font">Latest Captures</h3>
+                <div class="custom-media-grid">
+                    <!-- Add your downloaded images to your folder and name them latest-1.jpg, latest-2.jpg -->
+                    <img src="latest-1.jpg" alt="Latest Wedding Capture 1" onerror="this.src='https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=600&q=80'">
+                    <img src="latest-2.jpg" alt="Latest Wedding Capture 2" onerror="this.src='https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80'">
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- ==============================================
+                     2. ABOUT SECTION 
+    =============================================== -->
     <section id="about" class="page-section">
-        <h2 class="section-title">Our Evolution</h2>
-        <div class="about-container">
+        <div class="container">
+            <h2 class="section-title">Our Evolution</h2>
+            <p class="about-text">
+                <strong>EVARA</strong> is more than just a name— it’s a reflection of our passion for storytelling. 
+                Inspired by <em>“Ever”</em>, it symbolizes timeless moments, while <em>“Aura”</em> represents the beauty and emotions 
+                we capture in every frame. Rooted in culture, we ensure every photograph is a memory, a feeling, a story.
+            </p>
+
+            <!-- Creative Looping Animation -->
             <div class="pivot-animation-box">
                 <div class="anim-element loop-pjd">
                     <img src="pjd1.png" alt="Prajwal Dhanshetty" onerror="this.src='https://via.placeholder.com/200/fff/6c1e34?text=Prajwal'">
                 </div>
                 <div class="anim-element loop-is-now">
-                    <h2 class="brand-font" style="font-size: 2.5rem; letter-spacing: 5px; color: #2c2c2c;">IS NOW</h2>
+                    <h2 class="brand-font" style="font-size: 2.2rem; letter-spacing: 4px; color: #2c2c2c;">IS NOW</h2>
                 </div>
                 <div class="anim-element loop-evara">
                     <img src="logo.png" alt="EVARA Films" onerror="this.src='https://via.placeholder.com/250/fff/6c1e34?text=EVARA'">
                 </div>
             </div>
 
-            <p class="story-text">
-                <strong>EVARA</strong> is more than just a name— it’s a reflection of our passion for storytelling. 
-                Inspired by <em>“Ever”</em>, it symbolizes timeless moments, while <em>“Aura”</em> represents the beauty and emotions 
-                we capture in every frame. 
-            </p>
+            <h2 class="section-title" style="margin-top: 60px;">The Emblem</h2>
+            <div class="breakdown-grid">
+                <div class="breakdown-card">
+                    <img src="e.png" alt="Initial E" class="breakdown-icon" onerror="this.src='https://via.placeholder.com/70/6c1e34/fff?text=E'">
+                    <h3 class="brand-font">Initial 'E'</h3>
+                    <p>Highlighted elegantly in the abstract design, forming the core identity of the brand.</p>
+                </div>
+                <div class="breakdown-card">
+                    <img src="el.png" alt="Elegant Elephant" class="breakdown-icon" onerror="this.src='https://via.placeholder.com/70/6c1e34/fff?text=El'">
+                    <h3 class="brand-font">An Elegant Elephant</h3>
+                    <p>A symbol of luck, prosperity, and the mighty strength that blesses new beginnings.</p>
+                </div>
+                <div class="breakdown-card">
+                    <img src="l.png" alt="Held Lotus" class="breakdown-icon" onerror="this.src='https://via.placeholder.com/70/6c1e34/fff?text=L'">
+                    <h3 class="brand-font">Held Lotus</h3>
+                    <p>Represents charm, beauty, and the pure blossoming of a lifelong journey together.</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- ==============================================
+                   3. PORTFOLIO SECTION 
+    =============================================== -->
     <section id="portfolio" class="page-section">
-        <h2 class="section-title"><i class="fab fa-instagram" style="margin-right: 10px;"></i>Live Portfolio</h2>
-        <p style="text-align: center; margin-bottom: 30px;">Follow us <a href="https://www.instagram.com/evarafilms.in/" target="_blank" style="color: var(--brand-gold);">@evarafilms.in</a></p>
-        
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterPortfolio('all')">All Feed</button>
-            <button class="filter-btn" onclick="filterPortfolio('wedding')">Weddings</button>
-            <button class="filter-btn" onclick="filterPortfolio('prewedding')">Pre-Weddings</button>
-            <button class="filter-btn" onclick="filterPortfolio('candid')">Candids</button>
-        </div>
+        <div class="container">
+            <h2 class="section-title">Visual Treasures</h2>
+            
+            <!-- Filters (No 'All' option, default starts at Wedding via JS) -->
+            <div class="filter-controls">
+                <button class="filter-btn active" onclick="filterGallery('wedding')">Wedding</button>
+                <button class="filter-btn" onclick="filterGallery('prewedding')">Pre-Wedding</button>
+                <button class="filter-btn" onclick="filterGallery('candid')">Candid</button>
+            </div>
 
-        <div class="insta-grid">
-            <div class="insta-item wedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
-                <img src="https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=600&q=80" alt="Wedding">
-                <div class="insta-overlay">
-                    <span><i class="fas fa-heart"></i> 412</span>
-                    <span><i class="fas fa-comment"></i> 28</span>
-                </div>
+            <!-- Image Grid (Generated using the exact local file names requested) -->
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Javascript will inject wed-a.png to i, pre-a.png to i, can-a.png to i here -->
             </div>
-            <div class="insta-item prewedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
-                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80" alt="Pre Wedding">
-                <div class="insta-overlay">
-                    <span><i class="fas fa-heart"></i> 389</span>
-                    <span><i class="fas fa-comment"></i> 15</span>
-                </div>
-            </div>
-            <div class="insta-item candid show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
-                <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80" alt="Candid">
-                <div class="insta-overlay">
-                    <span><i class="fas fa-heart"></i> 520</span>
-                    <span><i class="fas fa-comment"></i> 42</span>
-                </div>
-            </div>
-            <div class="insta-item wedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
-                <img src="https://images.unsplash.com/photo-1550005809-91ad75fb315f?auto=format&fit=crop&w=600&q=80" alt="Wedding">
-                <div class="insta-overlay">
-                    <span><i class="fas fa-heart"></i> 890</span>
-                    <span><i class="fas fa-comment"></i> 64</span>
-                </div>
-            </div>
-            <div class="insta-item prewedding show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
-                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80" alt="Pre Wedding">
-                <div class="insta-overlay">
-                    <span><i class="fas fa-heart"></i> 310</span>
-                    <span><i class="fas fa-comment"></i> 12</span>
-                </div>
-            </div>
-            <div class="insta-item candid show" onclick="window.open('https://www.instagram.com/evarafilms.in/', '_blank')">
-                <img src="https://images.unsplash.com/photo-1610173827002-628ee3f65611?auto=format&fit=crop&w=600&q=80" alt="Candid">
-                <div class="insta-overlay">
-                    <span><i class="fas fa-heart"></i> 645</span>
-                    <span><i class="fas fa-comment"></i> 33</span>
+
+            <!-- Direct Video Player (Replaced Instagram iframe) -->
+            <div class="featured-reel">
+                <h3 class="brand-font">Featured Film</h3>
+                <div class="custom-video-wrapper">
+                    <!-- Download your reel as an MP4, name it 'featured-reel.mp4', and put it in your folder -->
+                    <!-- 'autoplay loop muted playsinline' ensures it auto-plays smoothly on mobile without controls -->
+                    <video autoplay loop muted playsinline>
+                        <source src="featured-reel.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ==============================================
+                   4. SERVICES SECTION 
+    =============================================== -->
     <section id="services" class="page-section">
-        <h2 class="section-title">Our Offerings</h2>
-        <div class="services-grid">
-            <div class="service-box">
-                <h3 class="brand-font">Wedding Photography</h3>
-                <p>Immersive, cinematic coverage of your special day, capturing the rituals, royalty, and overwhelming joy.</p>
-            </div>
-            <div class="service-box">
-                <h3 class="brand-font">Pre-Wedding</h3>
-                <p>Conceptualized storytelling through beautifully directed shoots to celebrate your bond.</p>
-            </div>
-            <div class="service-box">
-                <h3 class="brand-font">Candid Captures</h3>
-                <p>Unobtrusive photography freezing genuine smiles, tears, and spontaneous magic.</p>
+        <div class="container">
+            <h2 class="section-title">Our Offerings</h2>
+            <div class="services-grid">
+                <div class="service-box">
+                    <i class="fas fa-ring"></i>
+                    <h3 class="brand-font">Wedding Photography</h3>
+                    <p>Cinematic coverage capturing the rituals, royalty, and overwhelming joy of your big day.</p>
+                </div>
+                <div class="service-box">
+                    <i class="fas fa-camera-retro"></i>
+                    <h3 class="brand-font">Pre-Wedding Shoots</h3>
+                    <p>Conceptualized storytelling through beautifully directed shoots to celebrate your bond.</p>
+                </div>
+                <div class="service-box">
+                    <i class="fas fa-grin-beam"></i>
+                    <h3 class="brand-font">Candid Captures</h3>
+                    <p>Unobtrusive photography freezing genuine smiles, tears, and spontaneous magic.</p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ==============================================
+                   5. ENQUIRY SECTION 
+    =============================================== -->
     <section id="enquiry" class="page-section">
-        <h2 class="section-title">Connect With Us</h2>
-        <div class="form-container">
-            <form action="mailto:hello@evarafilms.in" method="POST" enctype="text/plain">
-                <div class="input-group">
-                    <input type="text" name="Name" placeholder="Full Name" required>
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-wrapper">
+                
+                <!-- Contact Details -->
+                <div class="contact-info">
+                    <h3 class="brand-font">Reach Out To Us</h3>
+                    <p style="margin-bottom: 20px; color: #666;">We would love to hear about your beautiful story and how we can frame it forever.</p>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email Us</strong><br>
+                            <a href="mailto:theevarafilms@gmail.com">theevarafilms@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Address</strong><br>
+                            <span>Kuvempu nagar, near Kle school, Belgaum</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Call Us</strong><br>
+                            <a href="tel:+917259773318">+91 7259773318</a>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-instagram"></i>
+                        <div>
+                            <strong>Follow Us</strong><br>
+                            <a href="https://www.instagram.com/evarafilms.in/" target="_blank">@evarafilms.in</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="email" name="Email" placeholder="Email Address" required>
-                </div>
-                <div class="input-group">
-                    <textarea name="Message" rows="5" placeholder="Tell us more about your beautiful day..." required></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Send Enquiry</button>
-            </form>
+
+                <!-- Form -->
+                <form action="mailto:theevarafilms@gmail.com" method="POST" enctype="text/plain">
+                    <div class="form-group">
+                        <input type="text" name="Name" placeholder="Your Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="Email" placeholder="Your Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="Phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="Message" rows="4" placeholder="Tell us about your event (Date, Type, Location)..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn submit-btn">Send Message</button>
+                </form>
+
+            </div>
         </div>
     </section>
 
+    <!-- ==============================================
+                       FOOTER 
+    =============================================== -->
     <footer>
-        <div class="brand-font" style="font-size: 1.5rem; margin-bottom: 10px;">EVARA FILMS</div>
+        <div class="brand-font footer-logo">EVARA FILMS</div>
+        <p>Turning fleeting moments into everlasting treasures.</p>
+        <div class="footer-social">
+            <a href="https://www.instagram.com/evarafilms.in/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:theevarafilms@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
         <p>&copy; 2026 EVARA Films. All Rights Reserved.</p>
         <div class="dev-credit">developed by Kunal Dongare</div>
     </footer>
 
+    <!-- ==============================================
+                       JAVASCRIPT 
+    =============================================== -->
     <script>
-        // Custom Cursor Logic
+        // --- Custom Cursor Logic (Desktop Only) ---
         const cursorDot = document.getElementById('cursor-dot');
         const cursorOutline = document.getElementById('cursor-outline');
         
-        window.addEventListener('mousemove', function(e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            // Adding a slight delay to the outline for a smooth trailing effect
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        // Hover effect for buttons/links expanding the cursor
-        document.querySelectorAll('a, button, .insta-item, .nav-logo').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.style.width = '60px';
-                cursorOutline.style.height = '60px';
-                cursorOutline.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+        if (window.innerWidth > 1024) {
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
             });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.backgroundColor = 'transparent';
-            });
-        });
 
-        // SPA Navigation
+            document.querySelectorAll('a, button, input, textarea, img').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.style.width = '50px';
+                    cursorOutline.style.height = '50px';
+                    cursorOutline.style.backgroundColor = 'rgba(197, 160, 89, 0.15)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.style.width = '35px';
+                    cursorOutline.style.height = '35px';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                });
+            });
+        }
+
+        // --- Mobile Menu Toggle ---
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        function toggleMobileMenu() {
+            menuBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('active');
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        // --- SPA Navigation ---
         function navigate(sectionId) {
-            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            // Update Active Links in Desktop Nav
+            document.querySelectorAll('.desktop-nav a').forEach(link => {
+                link.classList.remove('active');
+                // Check if onclick attribute contains the sectionId
+                if(link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Isolate and show the correct section
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
             document.getElementById(sectionId).classList.add('active');
+            
+            // Scroll safely to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Portfolio Filtering
-        function filterPortfolio(category) {
+        // --- Generate Gallery Images ---
+        const galleryGrid = document.getElementById('galleryGrid');
+        const letters = ['a','b','c','d','e','f','g','h','i'];
+        
+        function generateHTML(category, prefix) {
+            let html = '';
+            letters.forEach(letter => {
+                const imgName = `${prefix}-${letter}.png`;
+                html += `
+                <div class="gallery-item ${category}">
+                    <img src="${imgName}" alt="${category} photo ${letter}" onerror="this.src='https://via.placeholder.com/400x500/eaeaea/a0a0a0?text=Image+Not+Found'">
+                </div>`;
+            });
+            return html;
+        }
+
+        // Inject HTML
+        galleryGrid.innerHTML = 
+            generateHTML('wedding', 'wed') + 
+            generateHTML('prewedding', 'pre') + 
+            generateHTML('candid', 'can');
+
+        // --- Portfolio Filter Logic ---
+        function filterGallery(category) {
+            // Update active button styles
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            document.querySelectorAll('.insta-item').forEach(item => {
+
+            // Filter items
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
                 item.classList.remove('show');
-                if (category === 'all' || item.classList.contains(category)) {
+                if (item.classList.contains(category)) {
                     setTimeout(() => item.classList.add('show'), 50);
                 }
             });
         }
+
+        // Initialize gallery to show 'wedding' on first load
+        window.onload = () => {
+            filterGallery('wedding');
+        };
+
     </script>
 </body>
 </html>
