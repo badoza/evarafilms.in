@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EVARA | Timeless Storytelling</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>EVARA Films | Timeless Wedding Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for Royal & Minimalist Theme */
+        /* --- BRAND COLORS & VARIABLES --- */
         :root {
-            --bg-color: #0a0a0a;
-            --text-light: #f4f4f4;
-            --accent-gold: #d4af37;
-            --accent-dark: #1a1a1a;
-            --transition-speed: 0.5s;
+            --brand-burgundy: #6c1e34; /* Extracted from EVARA logo */
+            --brand-bg: #FAF9F6; /* Minimalist cream white */
+            --brand-text: #2c2c2c;
+            --brand-gold: #c5a059;
+            --transition-speed: 0.6s;
         }
 
         * {
@@ -23,306 +23,399 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-light);
+            background-color: var(--brand-bg);
+            color: var(--brand-text);
+            line-height: 1.7;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
         h1, h2, h3, .brand-font {
             font-family: 'Cinzel', serif;
-            font-weight: 400;
+            color: var(--brand-burgundy);
         }
 
-        /* Navigation */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px;
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(250, 249, 246, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
 
-        .logo {
-            font-size: 24px;
-            color: var(--accent-gold);
-            letter-spacing: 3px;
+        .nav-logo img {
+            height: 50px;
             cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .nav-logo img:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 25px;
         }
 
         .nav-links a {
-            color: var(--text-light);
+            color: var(--brand-text);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
+            letter-spacing: 1.5px;
             cursor: pointer;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--brand-burgundy);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--accent-gold);
+            color: var(--brand-burgundy);
         }
 
-        /* Sections */
+        /* --- SPA SECTIONS --- */
         .page-section {
             display: none;
             min-height: 100vh;
-            padding: 100px 20px 60px;
-            animation: fadeIn var(--transition-speed) ease-in-out forwards;
+            padding: 120px 5% 60px;
+            animation: fadeUp var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .page-section.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Home Section */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--brand-gold);
+            margin: 15px auto 40px;
+        }
+
+        /* --- HOME HERO --- */
         #home {
-            display: flex; /* Override for active state handled by JS */
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80') center/cover no-repeat;
+            padding: 0;
+            background: linear-gradient(rgba(250, 249, 246, 0.7), rgba(250, 249, 246, 0.9)), 
+                        url('https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=1920&q=80') center/cover;
         }
 
-        .hero-title {
-            font-size: 3rem;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-            letter-spacing: 5px;
+        #home.active {
+            display: flex;
         }
 
-        .hero-subtitle {
-            font-size: 1rem;
-            max-width: 600px;
-            margin: 0 auto 30px;
+        .hero-logo {
+            max-width: 300px;
+            margin-bottom: 30px;
+            animation: zoomIn 1.5s ease-out;
         }
 
-        /* About & Animation Section */
-        .about-content {
-            max-width: 800px;
+        .hero-text {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            color: var(--brand-text);
+        }
+
+        .btn {
+            background: var(--brand-burgundy);
+            color: #fff;
+            padding: 15px 35px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            border: 1px solid var(--brand-burgundy);
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--brand-burgundy);
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- ABOUT & ANIMATION --- */
+        .about-container {
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .brand-evolution {
+        .story-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* PJD to EVARA Pivot Animation */
+        .pivot-animation-box {
             position: relative;
-            height: 150px;
-            margin: 40px 0;
+            height: 300px;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 50px 0;
+            overflow: hidden;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(108, 30, 52, 0.08);
         }
 
-        .brand-logo-anim {
+        .anim-img {
             position: absolute;
-            font-size: 2.5rem;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 4px;
-            transition: all 1.5s ease-in-out;
+            max-width: 250px;
+            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        #old-brand {
-            color: #888;
-            opacity: 1;
-        }
+        #img-pjd { opacity: 1; transform: scale(1); }
+        #img-is-now { opacity: 0; transform: translateY(20px) scale(0.8); width: 150px; }
+        #img-evara { opacity: 0; transform: scale(0.5); }
 
-        #new-brand {
-            color: var(--accent-gold);
-            opacity: 0;
-            transform: scale(0.8);
-        }
+        /* Animation Sequence Classes (triggered by JS) */
+        .run-anim #img-pjd { opacity: 0; transform: translateY(-50px) scale(0.8); }
+        .run-anim #img-is-now { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.8s; }
+        .run-anim.step2 #img-is-now { opacity: 0; transform: scale(0.8); transition-delay: 0s; }
+        .run-anim.step2 #img-evara { opacity: 1; transform: scale(1); transition-delay: 0.5s; }
 
-        /* When trigger class is added via JS */
-        .evolve #old-brand {
-            opacity: 0;
-            transform: translateY(-20px) scale(0.9);
-        }
-
-        .evolve #new-brand {
-            opacity: 1;
-            transform: translateY(0) scale(1.2);
-        }
-
-        .breakdown-grid {
+        .logo-breakdown {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-top: 40px;
-            text-align: left;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
         .breakdown-card {
-            background: var(--accent-dark);
-            padding: 20px;
-            border-left: 3px solid var(--accent-gold);
+            background: #fff;
+            padding: 30px;
+            border-top: 3px solid var(--brand-gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: left;
         }
 
-        /* Portfolio */
-        .portfolio-filters {
+        /* --- PORTFOLIO --- */
+        .filter-container {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .filter-btn {
             background: transparent;
-            border: 1px solid var(--accent-gold);
-            color: var(--text-light);
-            padding: 8px 16px;
-            cursor: pointer;
+            border: 1px solid var(--brand-burgundy);
+            color: var(--brand-burgundy);
+            padding: 8px 20px;
             font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
         .filter-btn.active, .filter-btn:hover {
-            background: var(--accent-gold);
-            color: var(--bg-color);
+            background: var(--brand-burgundy);
+            color: #fff;
         }
 
-        .gallery-grid {
+        .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 4px;
+            border-radius: 5px;
             aspect-ratio: 4/5;
-            display: none; /* Handled by JS */
+            display: none; /* JS handles this */
         }
 
         .gallery-item.show {
             display: block;
-            animation: fadeIn 0.5s ease forwards;
+            animation: fadeUp 0.6s ease;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.6s ease;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
-        /* Services */
+        .gallery-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(108, 30, 52, 0.9));
+            color: #fff;
+            transition: bottom 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        /* --- SERVICES --- */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            gap: 30px;
         }
 
-        .service-card {
-            background: var(--accent-dark);
-            padding: 30px 20px;
+        .service-box {
             text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            transition: transform 0.3s;
+            padding: 40px 20px;
+            background: #fff;
+            border: 1px solid rgba(108, 30, 52, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .service-card:hover {
+        .service-box:hover {
             transform: translateY(-10px);
-            border-color: var(--accent-gold);
+            box-shadow: 0 15px 30px rgba(108, 30, 52, 0.1);
+            border-color: var(--brand-gold);
         }
 
-        .service-card h3 {
-            color: var(--accent-gold);
+        .service-box h3 {
             margin-bottom: 15px;
+            font-size: 1.5rem;
         }
 
-        /* Enquiry */
-        .enquiry-form {
-            max-width: 600px;
+        /* --- ENQUIRY FORM --- */
+        .form-container {
+            max-width: 700px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--brand-burgundy);
         }
 
-        .enquiry-form input, .enquiry-form textarea {
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input, .input-group textarea {
             width: 100%;
             padding: 15px;
-            background: var(--accent-dark);
-            border: 1px solid #333;
-            color: var(--text-light);
+            border: 1px solid #ddd;
+            background: var(--brand-bg);
             font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--brand-text);
+            transition: border-color 0.3s;
         }
 
-        .enquiry-form input:focus, .enquiry-form textarea:focus {
+        .input-group input:focus, .input-group textarea:focus {
             outline: none;
-            border-color: var(--accent-gold);
+            border-color: var(--brand-burgundy);
         }
 
-        .btn-submit {
-            background: var(--accent-gold);
-            color: var(--bg-color);
-            padding: 15px;
+        .submit-btn {
+            width: 100%;
             border: none;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
         }
 
-        .btn-submit:hover {
-            background: #fff;
-            color: var(--bg-color);
-        }
-
-        /* Footer */
+        /* --- FOOTER --- */
         footer {
+            background: var(--brand-burgundy);
+            color: #fff;
             text-align: center;
-            padding: 30px 20px;
-            background: var(--accent-dark);
+            padding: 40px 20px;
+            font-size: 0.9rem;
+        }
+
+        .dev-credit {
+            margin-top: 15px;
+            color: var(--brand-gold);
             font-size: 0.8rem;
             letter-spacing: 1px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            text-transform: uppercase;
         }
 
-        .credit {
-            color: var(--accent-gold);
-            margin-top: 10px;
-        }
-
-        /* Desktop Adjustments */
-        @media(min-width: 768px) {
-            .nav-links { gap: 30px; }
-            .hero-title { font-size: 5rem; }
-            .breakdown-grid { grid-template-columns: repeat(3, 1fr); }
-            .page-section { padding: 120px 50px 80px; }
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                padding: 15px 0;
+                justify-content: center;
+                gap: 15px;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            }
+            .nav-links a { font-size: 11px; }
+            .hero-logo { max-width: 200px; }
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo brand-font" onclick="navigate('home')">EVARA</div>
-        <div class="nav-links">
+        <div class="nav-logo" onclick="navigate('home')">
+            <img src="logo.png" alt="EVARA Films Logo" onerror="this.src='https://via.placeholder.com/150x50/6c1e34/fff?text=EVARA'">
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a onclick="navigate('home')" class="active">Home</a>
             <a onclick="navigate('about')">About</a>
             <a onclick="navigate('portfolio')">Portfolio</a>
             <a onclick="navigate('services')">Services</a>
@@ -331,146 +424,196 @@
     </nav>
 
     <section id="home" class="page-section active">
-        <h1 class="hero-title">EVARA</h1>
-        <p class="hero-subtitle">Turning fleeting moments into everlasting treasures. Rooted in artistry, blending tradition with modern creativity.</p>
-        <button class="filter-btn active" onclick="navigate('portfolio')">View Our Work</button>
+        <img src="logo.png" alt="EVARA Films" class="hero-logo" onerror="this.src='https://via.placeholder.com/300x100/6c1e34/fff?text=EVARA+FILMS'">
+        <p class="hero-text">Through our lens, we turn fleeting moments into everlasting treasures. Rooted in artistry and culture, blending tradition with modern creativity.</p>
+        <button class="btn" onclick="navigate('portfolio')">Explore Our Story</button>
     </section>
 
     <section id="about" class="page-section">
-        <div class="about-content">
-            <h2 style="color: var(--accent-gold); margin-bottom: 20px;">Our Story</h2>
-            <p>EVARA is more than just a name— it’s a reflection of our passion for storytelling. Inspired by “Ever”, it symbolizes timeless moments, while “Aura” represents the beauty and emotions we capture in every frame. It relates to greatness, divinity, and protection.</p>
-            
-            <div class="brand-evolution" id="evolution-container">
-                <div id="old-brand" class="brand-logo-anim">Prajwal Dhanshetty</div>
-                <div id="new-brand" class="brand-logo-anim">EVARA FILMS</div>
+        <h2 class="section-title">Our Story</h2>
+        <div class="about-container">
+            <p class="story-text">
+                <strong>EVARA</strong> is more than just a name— it’s a reflection of our passion for storytelling. 
+                Inspired by <em>“Ever”</em>, it symbolizes timeless moments, while <em>“Aura”</em> represents the beauty and emotions 
+                we capture in every frame. It resembles words like “Avara” (अवर्त) or “Eshvara” (ईश्वर), which relate to greatness, divinity, or protection.
+            </p>
+
+            <div class="pivot-animation-box" id="animBox">
+                <img src="pjd1.png" id="img-pjd" class="anim-img" alt="Prajwal Dhanshetty" onerror="this.src='https://via.placeholder.com/200/fff/6c1e34?text=Prajwal'">
+                <h2 id="img-is-now" class="anim-img brand-font" style="color:var(--brand-text);">IS NOW</h2>
+                <img src="logo.png" id="img-evara" class="anim-img" alt="EVARA Films" onerror="this.src='https://via.placeholder.com/200/fff/6c1e34?text=EVARA'">
             </div>
 
-            <p style="margin-bottom: 30px;">We have evolved to bring you a more royal, classy, and artistic experience. Our identity is crafted with deep meaning:</p>
+            <p class="story-text">
+                Rooted in artistry and culture, ensuring every photograph is more than just an image—it’s a memory, a feeling, a story.
+            </p>
 
-            <div class="breakdown-grid">
+            <div class="logo-breakdown">
                 <div class="breakdown-card">
-                    <h3 class="brand-font">Initial 'E'</h3>
-                    <p>Subtly highlighted in the abstract design, representing the foundation of EVARA.</p>
+                    <h3>Initial 'E'</h3>
+                    <p>Highlighted in the abstract design language, the 'E' in the elephant's ear forms the core of our new identity.</p>
                 </div>
                 <div class="breakdown-card">
-                    <h3 class="brand-font">The Elephant</h3>
-                    <p>A symbol of luck, prosperity, wisdom, and vitality. The mighty strength that removes obstacles.</p>
+                    <h3>An Elegant Elephant</h3>
+                    <p>A symbol of luck, prosperity, and wisdom. Representing the mighty strength to remove obstacles and bless new beginnings.</p>
                 </div>
                 <div class="breakdown-card">
-                    <h3 class="brand-font">Held Lotus</h3>
-                    <p>Represents pure charm, beauty, and the blossoming of a new lifelong journey together.</p>
+                    <h3>Held Lotus</h3>
+                    <p>Represents unmatched charm and purity, perfectly capturing the royal and classy essence of Indian weddings.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="portfolio" class="page-section">
-        <h2 style="text-align: center; color: var(--accent-gold); margin-bottom: 30px;">Our Portfolio</h2>
+        <h2 class="section-title">Visual Treasures</h2>
         
-        <div class="portfolio-filters">
-            <button class="filter-btn active" onclick="filterGallery('all')">All</button>
-            <button class="filter-btn" onclick="filterGallery('wedding')">Wedding</button>
-            <button class="filter-btn" onclick="filterGallery('prewedding')">Pre-Wedding</button>
-            <button class="filter-btn" onclick="filterGallery('candid')">Candid</button>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterPortfolio('all')">All</button>
+            <button class="filter-btn" onclick="filterPortfolio('wedding')">Wedding</button>
+            <button class="filter-btn" onclick="filterPortfolio('prewedding')">Pre-Wedding</button>
+            <button class="filter-btn" onclick="filterPortfolio('candid')">Candid</button>
         </div>
 
-        <div class="gallery-grid">
+        <div class="gallery">
             <div class="gallery-item wedding show">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wedding">
+                <img src="https://images.unsplash.com/photo-1583939008298-6e4775d71457?auto=format&fit=crop&w=800&q=80" alt="Wedding Moments">
+                <div class="gallery-overlay">Traditional Wedding</div>
             </div>
             <div class="gallery-item prewedding show">
-                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pre Wedding">
+                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80" alt="Pre Wedding Shoot">
+                <div class="gallery-overlay">Pre-Wedding Story</div>
             </div>
             <div class="gallery-item candid show">
-                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Candid">
+                <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=800&q=80" alt="Candid Joy">
+                <div class="gallery-overlay">Joyful Candids</div>
             </div>
             <div class="gallery-item wedding show">
-                <img src="https://images.unsplash.com/photo-1544535830-9df3dfbe0fac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wedding">
+                <img src="https://images.unsplash.com/photo-1550005809-91ad75fb315f?auto=format&fit=crop&w=800&q=80" alt="Wedding Rituals">
+                <div class="gallery-overlay">Royal Rituals</div>
+            </div>
+            <div class="gallery-item candid show">
+                <img src="https://images.unsplash.com/photo-1610173827002-628ee3f65611?auto=format&fit=crop&w=800&q=80" alt="Candid Moments">
+                <div class="gallery-overlay">Raw Emotions</div>
+            </div>
+            <div class="gallery-item prewedding show">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80" alt="Pre Wedding Creative">
+                <div class="gallery-overlay">Artistic Pre-Wedding</div>
             </div>
         </div>
     </section>
 
     <section id="services" class="page-section">
-        <h2 style="text-align: center; color: var(--accent-gold); margin-bottom: 30px;">What We Offer</h2>
+        <h2 class="section-title">Our Offerings</h2>
         <div class="services-grid">
-            <div class="service-card">
-                <h3>Wedding Shoot</h3>
-                <p>Capturing the traditions, the tears, and the joy of your big day with cinematic brilliance.</p>
+            <div class="service-box">
+                <h3>Wedding Photography</h3>
+                <p>Immersive, cinematic coverage of your special day, capturing the rituals, royalty, and overwhelming joy.</p>
             </div>
-            <div class="service-card">
-                <h3>Pre-Wedding</h3>
-                <p>Telling your love story through beautifully conceptualized and directed shoots before the vows.</p>
+            <div class="service-box">
+                <h3>Pre-Wedding Shoots</h3>
+                <p>Conceptualized storytelling through beautifully directed shoots to celebrate your bond before the big day.</p>
             </div>
-            <div class="service-card">
-                <h3>Candid Photography</h3>
-                <p>Unposed, natural, and raw emotions frozen in time forever.</p>
+            <div class="service-box">
+                <h3>Candid Captures</h3>
+                <p>Unobtrusive photography freezing genuine smiles, tears, and spontaneous moments of magic.</p>
             </div>
-            <div class="service-card">
-                <h3>Professional Shoot</h3>
-                <p>High-end editorial and professional captures tailored to your aesthetic needs.</p>
+            <div class="service-box">
+                <h3>Professional Shoots</h3>
+                <p>High-end editorial and conceptual photography blending modern creativity with timeless aesthetics.</p>
             </div>
         </div>
     </section>
 
     <section id="enquiry" class="page-section">
-        <h2 style="text-align: center; color: var(--accent-gold); margin-bottom: 30px;">Let's Create Magic</h2>
-        <form class="enquiry-form" action="mailto:hello@evarafilms.in" method="POST" enctype="text/plain">
-            <input type="text" name="Name" placeholder="Your Name" required>
-            <input type="email" name="Email" placeholder="Your Email Address" required>
-            <input type="tel" name="Phone" placeholder="Your Phone Number" required>
-            <input type="text" name="EventDate" placeholder="Event Date (DD/MM/YYYY)">
-            <textarea name="Message" rows="5" placeholder="Tell us about your event..." required></textarea>
-            <button type="submit" class="btn-submit">Send Enquiry</button>
-        </form>
+        <h2 class="section-title">Connect With Us</h2>
+        <div class="form-container">
+            <form action="mailto:contact@evarafilms.in" method="POST" enctype="text/plain">
+                <div class="input-group">
+                    <input type="text" name="Name" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="Email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" name="Phone" placeholder="Phone Number" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="EventType_and_Date" placeholder="Type of Event & Date (e.g., Wedding - 12 Nov)">
+                </div>
+                <div class="input-group">
+                    <textarea name="Message" rows="5" placeholder="Tell us more about your beautiful day..." required></textarea>
+                </div>
+                <button type="submit" class="btn submit-btn">Send Enquiry</button>
+            </form>
+        </div>
     </section>
 
     <footer>
+        <div class="brand-font" style="font-size: 1.5rem; margin-bottom: 10px;">EVARA FILMS</div>
+        <p>Turning fleeting moments into everlasting treasures.</p>
+        <div style="margin: 20px 0;">
+            <a href="https://www.instagram.com/evarafilms.in/" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-weight: bold;">Follow us on Instagram</a>
+        </div>
         <p>&copy; 2026 EVARA Films. All Rights Reserved.</p>
-        <div class="credit">developed by Kunal Dongare</div>
+        <div class="dev-credit">developed by Kunal Dongare</div>
     </footer>
 
     <script>
-        // SPA Navigation Logic
+        // SPA Navigation
         function navigate(sectionId) {
+            // Update Navigation active state
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+
             // Hide all sections
             document.querySelectorAll('.page-section').forEach(sec => {
                 sec.classList.remove('active');
-                if(sec.id === 'home') sec.style.display = 'none'; // Specific fix for flex layout
             });
             
             // Show target section
             const target = document.getElementById(sectionId);
             target.classList.add('active');
-            if(sectionId === 'home') target.style.display = 'flex';
 
-            // Trigger PJD -> EVARA animation if navigating to About
+            // Handle the PJD -> EVARA Animation
+            const animBox = document.getElementById('animBox');
             if(sectionId === 'about') {
+                // Reset animation classes first
+                animBox.classList.remove('run-anim', 'step2');
+                
+                // Trigger animation sequence
                 setTimeout(() => {
-                    document.getElementById('evolution-container').classList.add('evolve');
-                }, 500); // Wait half a second before animating
+                    animBox.classList.add('run-anim');
+                    // Trigger step 2 after 2 seconds
+                    setTimeout(() => {
+                        animBox.classList.add('step2');
+                    }, 2000);
+                }, 300);
             } else {
-                // Reset animation if leaving page
-                document.getElementById('evolution-container').classList.remove('evolve');
+                // Reset when leaving page
+                animBox.classList.remove('run-anim', 'step2');
             }
 
+            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Portfolio Filtering Logic
-        function filterGallery(category) {
+        // Portfolio Filtering
+        function filterPortfolio(category) {
             // Update active button
-            const buttons = document.querySelectorAll('.portfolio-filters .filter-btn');
+            const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
             // Filter images
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(item => {
+                // Quick reset of animation class
+                item.classList.remove('show');
+                
                 if (category === 'all' || item.classList.contains(category)) {
-                    item.classList.add('show');
-                } else {
-                    item.classList.remove('show');
+                    // Slight delay to re-trigger CSS animation
+                    setTimeout(() => item.classList.add('show'), 50);
                 }
             });
         }
